@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "ms-python.black-formatter",
+    "samuelcolvin.jinjahtml",
+    "ms-python.flake8",
+    "vincaslt.highlight-matching-tag",
+    "stylelint.vscode-stylelint"
+  ]
+}
