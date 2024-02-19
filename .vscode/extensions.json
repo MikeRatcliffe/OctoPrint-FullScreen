@@ -4,6 +4,7 @@
     "samuelcolvin.jinjahtml",
     "ms-python.flake8",
     "vincaslt.highlight-matching-tag",
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    "esbenp.prettier-vscode"
   ]
 }
