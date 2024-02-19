@@ -1,6 +1,6 @@
 # OctoPrint-Fullscreen
 
-*Originally by [Paul de Vries ](https://github.com/BillyBlaze) until 2024. Development was taken over by [Mike Ratcliffe](https://github.com/MikeRatcliffe) in February 2024.*
+_Originally by [Paul de Vries](https://github.com/BillyBlaze) until 2024. Development was taken over by [Mike Ratcliffe](https://github.com/MikeRatcliffe) in February 2024._
 
 This plugin will allow you to open the webcam feed in fullscreen mode by double clicking the image. It will show a bar at the bottom of the image with information about print time, remaining time, temperatures and a pause button.
 
@@ -11,8 +11,8 @@ or manually using this URL:
 
     https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
 
-
 ## Support browsers (tested)
+
 - IE Edge
 - Firefox
 - Chrome
