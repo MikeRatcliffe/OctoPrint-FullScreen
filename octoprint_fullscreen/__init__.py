@@ -30,10 +30,10 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 				displayName="Fullscreen Plugin",
 				displayVersion=self._plugin_version,
 				type="github_release",
-				user="BillyBlaze",
+				user="MikeRatcliffe",
 				repo="OctoPrint-FullScreen",
 				current=self._plugin_version,
-				pip="https://github.com/BillyBlaze/OctoPrint-FullScreen/archive/{target_version}.zip"
+				pip="https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/{target_version}.zip"
 			)
 		)
 

@@ -4,15 +4,15 @@ layout: plugin
 id: fullscreen
 title: OctoPrint-Fullscreen
 description: Open webcam in fullscreen mode
-author: Paul de Vries
+author: Mike Ratcliffe
 license: AGPLv3
 
 # TODO
 date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
 
-homepage: https://github.com/BillyBlaze/OctoPrint-FullScreen
-source: https://github.com/BillyBlaze/OctoPrint-FullScreen
-archive: https://github.com/BillyBlaze/OctoPrint-FullScreen/archive/master.zip
+homepage: https://github.com/MikeRatcliffe/OctoPrint-FullScreen
+source: https://github.com/MikeRatcliffe/OctoPrint-FullScreen
+archive: https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
 
 # TODO set this to true if your plugin uses the dependency_links setup parameter to include
 # library versions not yet published on PyPi. SHOULD ONLY BE USED IF THERE IS NO OTHER OPTION!

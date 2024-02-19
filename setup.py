@@ -21,13 +21,13 @@ plugin_version = "0.0.6"
 plugin_description = """Open webcam in fullscreen mode"""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Paul de Vries"
+plugin_author = "Mike Ratcliffe"
 
 # The plugin's author's mail address.
-plugin_author_email = "octoprint+fullscreen@aerosol.me"
+plugin_author_email = "michael@ratcliffefamily.org"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/BillyBlaze/OctoPrint-FullScreen"
+plugin_url = "https://github.com/MikeRatcliffe/OctoPrint-FullScreen"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "AGPLv3"
