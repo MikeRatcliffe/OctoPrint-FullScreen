@@ -5,30 +5,27 @@
  * (Other stuff) Author: Paul de Vries
  * License: AGPLv3
  */
-let onceOpenInlineFullscreen = false;
-if (window.location.hash.includes("-fullscreen-open")) {
-  window.location.hash = window.location.hash
-    .replace("-fullscreen-open", "")
-    .substr(1);
-  onceOpenInlineFullscreen = true;
+let isOnceOpenInlineFullscreen = false;
+const hash = window.location.hash;
+if (hash.includes("-fullscreen-open")) {
+  window.location.hash = hash.replace("-fullscreen-open", "").substr(1);
+  isOnceOpenInlineFullscreen = true;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   function FullscreenViewModel(parameters) {
-    const body = document.body;
-    let fullscreenContainer;
-    let container;
+    let fullscreenContainer = null;
+    let container = null;
 
     this.tempModel = parameters[0];
     this.printer = parameters[1];
-    this.printer.fsp = {};
-
-    this.printer.fsp.printLayerProgress = ko.observable("");
-    this.printer.fsp.hasLayerProgress = ko.observable(false);
-
-    this.printer.fsp.isFullscreen = ko.observable(false);
-    this.printer.fsp.fullscreen = () => {
-      toggleFullScreen(fullscreenContainer);
+    this.printer.fsp = {
+      printLayerProgress: ko.observable(""),
+      hasLayerProgress: ko.observable(false),
+      isFullscreen: ko.observable(false),
+      fullscreen: () => {
+        toggleFullScreen(fullscreenContainer);
+      },
     };
 
     this.onStartupComplete = () => {
@@ -59,21 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
           touchtime = new Date().getTime();
         } else {
           if (new Date().getTime() - touchtime < 800) {
-            toggleClass(body, "inlineFullscreen");
+            toggleClass(document.body, "inlineFullscreen");
             toggleClass(container, "inline fullscreen");
 
-            if (body.classList.contains("inlineFullscreen")) {
-              history.pushState(
-                "",
-                null,
-                `${window.location.hash}-fullscreen-open`
-              );
-            } else if (window.location.hash.includes("-fullscreen-open")) {
-              history.pushState(
-                "",
-                null,
-                window.location.hash.replace("-fullscreen-open", "")
-              );
+            const hash = window.location.hash;
+            if (document.body.classList.contains("inlineFullscreen")) {
+              history.pushState("", null, `${hash}-fullscreen-open`);
+            } else if (hash.includes("-fullscreen-open")) {
+              history.pushState("", null, hash.replace("-fullscreen-open", ""));
             }
 
             if (this.printer.fsp.isFullscreen()) {
@@ -86,15 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      if (onceOpenInlineFullscreen) {
+      if (isOnceOpenInlineFullscreen) {
         setTimeout(() => {
           touchtime = new Date().getTime();
           webcam.dispatchEvent(new Event("click"));
-          onceOpenInlineFullscreen = false;
+          isOnceOpenInlineFullscreen = false;
         }, 100);
       }
 
-      container.after(info);
+      container.insertAdjacentElement("afterend", info);
 
       const buttonContainer = document.querySelector(
         "#fullscreen-bar .user-buttons"
@@ -126,45 +116,41 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (data.currentLayer && data.totalLayer) {
-          this.printer.fsp.printLayerProgress(
-            `${data.currentLayer} / ${data.totalLayer}`
-          );
+          const progressMessage = `${data.currentLayer} / ${data.totalLayer}`;
+          this.printer.fsp.printLayerProgress(progressMessage);
         }
       }
     };
 
     this.formatBarTemperatureFullscreen = (toolName, actual, target) => {
-      let output = `${toolName}: ${actual.toFixed(1)}&deg;C`;
+      let output = `${toolName}: ${actual.toFixed(1)}°C`;
 
       if (target) {
-        const sign = target >= actual ? " \u21D7 " : " \u21D8 ";
-        output += `${sign}${target.toFixed(1)}&deg;C`;
+        const arrow = target >= actual ? " \u21D7 " : " \u21D8 ";
+        output += `${arrow}${target.toFixed(1)}°C`;
       }
 
       return output;
     };
 
-    function toggleClass(el, classNames) {
-      classNames = classNames.split(" ");
-
-      for (const className of classNames) {
-        if (el.classList.contains(className)) {
-          el.classList.remove(className);
-        } else {
-          el.classList.add(className);
-        }
-      }
+    function toggleClass(element, classList) {
+      classList.split(" ").forEach((className) => {
+        element.classList.toggle(className);
+      });
     }
 
-    function toggleFullScreen(el) {
-      if (!document.fullscreenElement) {
-        el.requestFullscreen().catch((err) => {
-          alert(
-            `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
-          );
-        });
+    function toggleFullScreen(element) {
+      const isFullscreen = document.fullscreenElement;
+      const requestFullscreen = () => element.requestFullscreen();
+      const exitFullscreen = () => document.exitFullscreen();
+
+      if (isFullscreen) {
+        exitFullscreen();
       } else {
-        document.exitFullscreen();
+        requestFullscreen().catch((error) => {
+          const message = `Error attempting to enable fullscreen mode: ${error.message} (${error.name})`;
+          alert(message);
+        });
       }
     }
 
