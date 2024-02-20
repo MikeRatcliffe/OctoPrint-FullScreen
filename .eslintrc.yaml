@@ -6,7 +6,6 @@ parserOptions:
     ecmaVersion: latest
 extends: eslint:recommended
 globals:
-    _: readonly
     checkMount: readonly
     getDir: readonly
     hash_alg: readonly
