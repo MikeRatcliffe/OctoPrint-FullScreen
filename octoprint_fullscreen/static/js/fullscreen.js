@@ -5,83 +5,79 @@
  * (Other stuff) Author: Paul de Vries
  * License: AGPLv3
  */
-var onceOpenInlineFullscreen = false;
-if (window.location.hash.indexOf("-fullscreen-open") !== -1) {
+let onceOpenInlineFullscreen = false;
+if (window.location.hash.includes("-fullscreen-open")) {
   window.location.hash = window.location.hash
     .replace("-fullscreen-open", "")
     .substr(1);
   onceOpenInlineFullscreen = true;
 }
 
-$(function () {
+document.addEventListener("DOMContentLoaded", () => {
   function FullscreenViewModel(parameters) {
-    var self = this;
-    var $body = $("body");
-    var $container, $fullscreenContainer;
+    const body = document.body;
+    let fullscreenContainer;
+    let container;
 
-    self.tempModel = parameters[0];
-    self.printer = parameters[1];
-    self.printer.fsp = {};
+    this.tempModel = parameters[0];
+    this.printer = parameters[1];
+    this.printer.fsp = {};
 
-    self.printer.fsp.printLayerProgress = ko.observable("");
-    self.printer.fsp.hasLayerProgress = ko.observable(false);
+    this.printer.fsp.printLayerProgress = ko.observable("");
+    this.printer.fsp.hasLayerProgress = ko.observable(false);
 
-    self.printer.fsp.isFullscreen = ko.observable(false);
-    self.printer.fsp.fullscreen = function () {
-      $fullscreenContainer.toggleFullScreen();
+    this.printer.fsp.isFullscreen = ko.observable(false);
+    this.printer.fsp.fullscreen = () => {
+      toggleFullScreen(fullscreenContainer);
     };
 
-    self.onStartupComplete = function () {
-      var $webcam = $("#webcam_image");
-      var $info = $("#fullscreen-bar");
+    this.onStartupComplete = () => {
+      const webcam = document.querySelector("#webcam_image");
+      const info = document.querySelector("#fullscreen-bar");
 
-      var containerPlaceholder = document.querySelector(
+      const containerPlaceholder = document.querySelector(
         "#webcam,#webcam_container,#classicwebcam_container"
       );
       if (!containerPlaceholder) {
         return;
       }
 
-      var containerPlaceholderSelector = `#${containerPlaceholder.id}`;
-      if ($(".webcam_fixed_ratio").length > 0) {
-        $container = $(containerPlaceholderSelector + " .webcam_fixed_ratio");
-        $fullscreenContainer = $(
-          containerPlaceholderSelector + " #webcam_rotator"
-        );
+      const webcamFixedRatio = document.querySelector(".webcam_fixed_ratio");
+      if (webcamFixedRatio) {
+        container = webcamFixedRatio;
+        fullscreenContainer = document.querySelector("#webcam_rotator");
       } else {
-        $container = $(containerPlaceholderSelector + " #webcam_rotator");
-        $fullscreenContainer = $(
-          containerPlaceholderSelector + " #classicwebcam_container"
+        container = document.querySelector("#webcam_rotator");
+        fullscreenContainer = document.querySelector(
+          "#classicwebcam_container"
         );
       }
 
-      var touchtime = 0;
-      $webcam.on("click", function () {
+      let touchtime = 0;
+      webcam.addEventListener("click", () => {
         if (touchtime === 0) {
           touchtime = new Date().getTime();
         } else {
           if (new Date().getTime() - touchtime < 800) {
-            $body.toggleClass("inlineFullscreen");
-            $container.toggleClass("inline fullscreen");
+            toggleClass(body, "inlineFullscreen");
+            toggleClass(container, "inline fullscreen");
 
-            if ($body.hasClass("inlineFullscreen")) {
+            if (body.classList.contains("inlineFullscreen")) {
               history.pushState(
                 "",
                 null,
                 window.location.hash + "-fullscreen-open"
               );
-            } else {
-              if (window.location.hash.indexOf("-fullscreen-open") !== -1) {
-                history.pushState(
-                  "",
-                  null,
-                  window.location.hash.replace("-fullscreen-open", "")
-                );
-              }
+            } else if (window.location.hash.includes("-fullscreen-open")) {
+              history.pushState(
+                "",
+                null,
+                window.location.hash.replace("-fullscreen-open", "")
+              );
             }
 
-            if (self.printer.fsp.isFullscreen()) {
-              $fullscreenContainer.toggleFullScreen();
+            if (this.printer.fsp.isFullscreen()) {
+              toggleFullScreen(fullscreenContainer);
             }
             touchtime = 0;
           } else {
@@ -91,60 +87,88 @@ $(function () {
       });
 
       if (onceOpenInlineFullscreen) {
-        setTimeout(function () {
+        setTimeout(() => {
           touchtime = new Date().getTime();
-          $webcam.trigger("click");
+          webcam.dispatchEvent(new Event("click"));
           onceOpenInlineFullscreen = false;
         }, 100);
       }
 
-      $info.insertAfter($container);
-      $(".print-control #job_pause")
-        .clone()
-        .appendTo("#fullscreen-bar .user-buttons")
-        .attr("id", "job_pause_clone");
+      container.after(info);
+
+      const buttonContainer = document.querySelector(
+        "#fullscreen-bar .user-buttons"
+      );
+      const pauseButton = document.querySelector(".print-control #job_pause");
+      const pauseButtonClone = pauseButton.cloneNode(true);
+      pauseButtonClone.setAttribute("id", "job_pause_clone");
+      buttonContainer.appendChild(pauseButtonClone);
 
       ko.applyBindings(
-        self.printer,
-        $("#fullscreen-bar #fullscreen-print-info").get(0)
+        this.printer,
+        document.querySelector("#fullscreen-bar #fullscreen-print-info")
       );
       ko.applyBindings(
-        self.printer,
-        $("#fullscreen-bar #fullscreen-buttons").get(0)
+        this.printer,
+        document.querySelector("#fullscreen-bar #fullscreen-buttons")
       );
       ko.applyBindings(
-        self.printer,
-        $("#fullscreen-bar #fullscreen-progress-bar").get(0)
+        this.printer,
+        document.querySelector("#fullscreen-bar #fullscreen-progress-bar")
       );
     };
 
-    self.onDataUpdaterPluginMessage = function (plugin, data) {
+    this.onDataUpdaterPluginMessage = (plugin, data) => {
       if (plugin.indexOf("DisplayLayerProgress") !== -1) {
-        if (!self.printer.fsp.hasLayerProgress()) {
-          self.printer.fsp.hasLayerProgress(true);
+        if (!this.printer.fsp.hasLayerProgress()) {
+          this.printer.fsp.hasLayerProgress(true);
         }
 
         if (data.currentLayer && data.totalLayer) {
-          self.printer.fsp.printLayerProgress(
+          this.printer.fsp.printLayerProgress(
             data.currentLayer + " / " + data.totalLayer
           );
         }
       }
     };
 
-    self.formatBarTemperatureFullscreen = function (toolName, actual, target) {
-      var output = toolName + ": " + _.sprintf("%.1f&deg;C", actual);
+    this.formatBarTemperatureFullscreen = (toolName, actual, target) => {
+      let output = toolName + ": " + _.sprintf("%.1f&deg;C", actual);
 
       if (target) {
-        var sign = target >= actual ? " \u21D7 " : " \u21D8 ";
+        const sign = target >= actual ? " \u21D7 " : " \u21D8 ";
         output += sign + _.sprintf("%.1f&deg;C", target);
       }
 
       return output;
     };
 
-    $(document).bind("fullscreenchange", function () {
-      self.printer.fsp.isFullscreen($(document).fullScreen());
+    function toggleClass(el, classNames) {
+      classNames = classNames.split(" ");
+
+      for (const className of classNames) {
+        if (el.classList.contains(className)) {
+          el.classList.remove(className);
+        } else {
+          el.classList.add(className);
+        }
+      }
+    }
+
+    function toggleFullScreen(el) {
+      if (!document.fullscreenElement) {
+        el.requestFullscreen().catch((err) => {
+          alert(
+            `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+          );
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener("fullscreenchange", () => {
+      this.printer.fsp.isFullscreen(!!document.fullscreenElement);
     });
   }
 

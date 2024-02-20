@@ -14,7 +14,7 @@ class FullscreenPlugin(
 
     def get_assets(self):
         return dict(
-            js=["js/fullscreen.js", "js/jquery-fullscreen.js"],
+            js=["js/fullscreen.js"],
             css=["css/fullscreen.css"],
             less=[],
         )
