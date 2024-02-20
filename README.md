@@ -11,8 +11,10 @@ or manually using this URL:
 
     https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
 
-## Support browsers (tested)
+## Supported Browsers
 
-- IE Edge
+- IE
+- Edge
 - Firefox
 - Chrome
+- Brave
