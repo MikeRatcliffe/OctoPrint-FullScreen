@@ -5,6 +5,7 @@
     "ms-python.flake8",
     "vincaslt.highlight-matching-tag",
     "stylelint.vscode-stylelint",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
   ]
 }
