@@ -2,9 +2,11 @@
  * View model for OctoPrint-Fullscreen
  *
  * Based on: NavbarTemp credits to Jarek Szczepanski
- * (Other stuff) Author: Paul de Vries
+ * (Other stuff) Author: Paul de Vries & Mike Ratcliffe
  * License: AGPLv3
  */
+
+// Open fullscreen on page load as appropriate
 let isOnceOpenInlineFullscreen = false;
 const hash = window.location.hash;
 if (hash.includes("-fullscreen-open")) {
@@ -13,9 +15,18 @@ if (hash.includes("-fullscreen-open")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  /**
+   * Constructor function for FullscreenViewModel.
+   *
+   * @param {Array} tempModel
+   *        temperatureViewModel
+   * @param {Object} printer
+   *        printerStateViewModel
+   */
   function FullscreenViewModel([tempModel, printer]) {
     let fullscreenContainer = null;
     let container = null;
+    let touchtime = 0;
 
     this.tempModel = tempModel;
     this.printer = printer;
@@ -28,9 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     };
 
+    /**
+     * Handle actions on Octoprint's startup completion.
+     */
     this.onStartupComplete = () => {
-      const webcam = document.querySelector("#webcam_image");
-      const info = document.querySelector("#fullscreen-bar");
       const containerPlaceholder = document.querySelector(
         "#webcam,#webcam_container,#classicwebcam_container"
       );
@@ -39,7 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      const webcam = document.querySelector("#webcam_image");
+      const info = document.querySelector("#fullscreen-bar");
       const webcamFixedRatio = document.querySelector(".webcam_fixed_ratio");
+
       if (webcamFixedRatio) {
         container = webcamFixedRatio;
         fullscreenContainer = document.querySelector("#webcam_rotator");
@@ -54,8 +69,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (isOnceOpenInlineFullscreen) {
         setTimeout(() => {
-          touchtime = new Date().getTime();
-          webcam.dispatchEvent(new Event("click"));
+          touchtime = Date.now();
+          webcam.click();
           isOnceOpenInlineFullscreen = false;
         }, 100);
       }
@@ -68,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const pauseButton = document.querySelector(".print-control #job_pause");
       const pauseButtonClone = pauseButton.cloneNode(true);
 
-      pauseButtonClone.setAttribute("id", "job_pause_clone");
+      pauseButtonClone.id = "job_pause_clone";
       buttonContainer.appendChild(pauseButtonClone);
 
       ko.applyBindings(
@@ -85,71 +100,111 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     };
 
-    this.onDataUpdaterPluginMessage = (plugin, data) => {
+    /**
+     * Handles the plugin message for updating data.
+     *
+     * @param {string} plugin
+     *        The identifier of the calling plugin
+     * @param {string|object} message
+     *        The data being sent by the plugin
+     */
+    this.onDataUpdaterPluginMessage = (plugin, message) => {
       if (plugin.includes("DisplayLayerProgress")) {
         if (!this.printer.fsp.hasLayerProgress()) {
           this.printer.fsp.hasLayerProgress(true);
         }
 
-        if (data.currentLayer && data.totalLayer) {
-          const progressMessage = `${data.currentLayer} / ${data.totalLayer}`;
+        if (message.currentLayer && message.totalLayer) {
+          const progressMessage = `${message.currentLayer} / ${message.totalLayer}`;
           this.printer.fsp.printLayerProgress(progressMessage);
         }
       }
     };
 
-    this.formatBarTemperatureFullscreen = (toolName, actual, target) => {
-      let output = `${toolName}: ${actual.toFixed(1)}°C`;
+    /**
+     * Format the temperature display.
+     *
+     * @param {string} toolName
+     *        The name of the tool
+     * @param {number} actual
+     *        The actual temperature in degrees Celsius
+     * @param {number} target (optional)
+     *        The target temperature in degrees Celsius
+     * @return {string}
+     *        The formatted temperature with optional target temperature
+     */
+    this.formatTemperatureFullscreen = (toolName, actual, target) => {
+      const formattedActual = `${actual.toFixed(1)}°C`;
+      let formattedTarget = "";
 
       if (target) {
-        const arrow = target >= actual ? " \u21D7 " : " \u21D8 ";
-        output += `${arrow}${target.toFixed(1)}°C`;
-      }
-
-      return output;
-    };
-
-    let touchtime = 0;
-    const onWebcamClick = () => {
-      if (touchtime === 0) {
-        touchtime = new Date().getTime();
-      } else {
-        if (new Date().getTime() - touchtime < 800) {
-          toggleClass(document.body, "inlineFullscreen");
-          toggleClass(container, "inline fullscreen");
-
-          const hash = window.location.hash;
-          if (document.body.classList.contains("inlineFullscreen")) {
-            history.pushState("", null, `${hash}-fullscreen-open`);
-          } else if (hash.includes("-fullscreen-open")) {
-            history.pushState("", null, hash.replace("-fullscreen-open", ""));
-          }
-
-          if (this.printer.fsp.isFullscreen()) {
-            toggleFullScreen(fullscreenContainer);
-          }
-          touchtime = 0;
+        if (target >= actual) {
+          formattedTarget = ` \u21D7 ${target.toFixed(1)}°C`;
         } else {
-          touchtime = new Date().getTime();
+          formattedTarget = ` \u21D8 ${target.toFixed(1)}°C`;
         }
       }
+
+      return `${toolName}: ${formattedActual}${formattedTarget}`;
     };
 
+    /**
+     * Webcam click event handler.
+     */
+    const onWebcamClick = () => {
+      const now = Date.now();
+
+      if (now - touchtime < 800 && touchtime !== 0) {
+        toggleClass(document.body, "inlineFullscreen");
+        toggleClass(container, "inline fullscreen");
+
+        const hash = window.location.hash;
+        const isInlineFullscreen =
+          document.body.classList.contains("inlineFullscreen");
+        if (isInlineFullscreen) {
+          history.pushState("", null, `${hash}-fullscreen-open`);
+        } else if (hash.includes("-fullscreen-open")) {
+          history.pushState("", null, hash.replace("-fullscreen-open", ""));
+        }
+
+        if (this.printer.fsp.isFullscreen()) {
+          toggleFullScreen(fullscreenContainer);
+        }
+        touchtime = 0;
+      } else {
+        touchtime = now;
+      }
+    };
+
+    /**
+     * Toggles the specified classes on the given element's class list.
+     *
+     * @param {Object} element
+     *        The element to toggle classes on
+     * @param {string} classList
+     *        A space-separated list of classes to toggle
+     */
     function toggleClass(element, classList) {
       classList.split(" ").forEach((className) => {
         element.classList.toggle(className);
       });
     }
 
+    /**
+     * Toggles full screen mode for the given element.
+     *
+     * @param {Element} element
+     *        The element to toggle full screen for
+     * @return {Promise<void>}
+     *        A promise that resolves when full screen mode is toggled
+     */
     function toggleFullScreen(element) {
       const isFullscreen = document.fullscreenElement;
-      const requestFullscreen = () => element.requestFullscreen();
-      const exitFullscreen = () => document.exitFullscreen();
 
       if (isFullscreen) {
-        exitFullscreen();
+        document.exitFullscreen();
       } else {
-        requestFullscreen().catch((error) => {
+        element.requestFullscreen().catch((error) => {
           const message = `Error attempting to enable fullscreen mode: ${error.message} (${error.name})`;
           alert(message);
         });
