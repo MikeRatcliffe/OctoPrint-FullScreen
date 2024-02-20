@@ -8,7 +8,6 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "stylelint.packageManager": "npm",
   "stylelint.validate": ["css", "scss"],
   "[css]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
