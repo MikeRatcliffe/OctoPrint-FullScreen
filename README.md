@@ -11,6 +11,10 @@ or manually using this URL:
 
     https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
 
+## Other Extensions
+
+If you have the awesome DisplayLayerProgress plugin, then the layer progress will also be displayed by this plugin.
+
 ## Supported Browsers
 
 - IE
