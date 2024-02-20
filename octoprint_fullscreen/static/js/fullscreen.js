@@ -13,12 +13,12 @@ if (hash.includes("-fullscreen-open")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  function FullscreenViewModel(parameters) {
+  function FullscreenViewModel([tempModel, printer]) {
     let fullscreenContainer = null;
     let container = null;
 
-    this.tempModel = parameters[0];
-    this.printer = parameters[1];
+    this.tempModel = tempModel;
+    this.printer = printer;
     this.printer.fsp = {
       printLayerProgress: ko.observable(""),
       hasLayerProgress: ko.observable(false),
@@ -50,31 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      let touchtime = 0;
-      webcam.addEventListener("click", () => {
-        if (touchtime === 0) {
-          touchtime = new Date().getTime();
-        } else {
-          if (new Date().getTime() - touchtime < 800) {
-            toggleClass(document.body, "inlineFullscreen");
-            toggleClass(container, "inline fullscreen");
-
-            const hash = window.location.hash;
-            if (document.body.classList.contains("inlineFullscreen")) {
-              history.pushState("", null, `${hash}-fullscreen-open`);
-            } else if (hash.includes("-fullscreen-open")) {
-              history.pushState("", null, hash.replace("-fullscreen-open", ""));
-            }
-
-            if (this.printer.fsp.isFullscreen()) {
-              toggleFullScreen(fullscreenContainer);
-            }
-            touchtime = 0;
-          } else {
-            touchtime = new Date().getTime();
-          }
-        }
-      });
+      webcam.addEventListener("click", onWebcamClick);
 
       if (isOnceOpenInlineFullscreen) {
         setTimeout(() => {
@@ -131,6 +107,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       return output;
+    };
+
+    let touchtime = 0;
+    const onWebcamClick = () => {
+      if (touchtime === 0) {
+        touchtime = new Date().getTime();
+      } else {
+        if (new Date().getTime() - touchtime < 800) {
+          toggleClass(document.body, "inlineFullscreen");
+          toggleClass(container, "inline fullscreen");
+
+          const hash = window.location.hash;
+          if (document.body.classList.contains("inlineFullscreen")) {
+            history.pushState("", null, `${hash}-fullscreen-open`);
+          } else if (hash.includes("-fullscreen-open")) {
+            history.pushState("", null, hash.replace("-fullscreen-open", ""));
+          }
+
+          if (this.printer.fsp.isFullscreen()) {
+            toggleFullScreen(fullscreenContainer);
+          }
+          touchtime = 0;
+        } else {
+          touchtime = new Date().getTime();
+        }
+      }
     };
 
     function toggleClass(element, classList) {
