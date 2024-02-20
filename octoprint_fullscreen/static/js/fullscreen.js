@@ -34,10 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     this.onStartupComplete = () => {
       const webcam = document.querySelector("#webcam_image");
       const info = document.querySelector("#fullscreen-bar");
-
       const containerPlaceholder = document.querySelector(
         "#webcam,#webcam_container,#classicwebcam_container"
       );
+
       if (!containerPlaceholder) {
         return;
       }
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
               history.pushState(
                 "",
                 null,
-                window.location.hash + "-fullscreen-open"
+                `${window.location.hash}-fullscreen-open`
               );
             } else if (window.location.hash.includes("-fullscreen-open")) {
               history.pushState(
@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const pauseButton = document.querySelector(".print-control #job_pause");
       const pauseButtonClone = pauseButton.cloneNode(true);
+
       pauseButtonClone.setAttribute("id", "job_pause_clone");
       buttonContainer.appendChild(pauseButtonClone);
 
@@ -119,25 +120,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     this.onDataUpdaterPluginMessage = (plugin, data) => {
-      if (plugin.indexOf("DisplayLayerProgress") !== -1) {
+      if (plugin.includes("DisplayLayerProgress")) {
         if (!this.printer.fsp.hasLayerProgress()) {
           this.printer.fsp.hasLayerProgress(true);
         }
 
         if (data.currentLayer && data.totalLayer) {
           this.printer.fsp.printLayerProgress(
-            data.currentLayer + " / " + data.totalLayer
+            `${data.currentLayer} / ${data.totalLayer}`
           );
         }
       }
     };
 
     this.formatBarTemperatureFullscreen = (toolName, actual, target) => {
-      let output = toolName + ": " + _.sprintf("%.1f&deg;C", actual);
+      let output = `${toolName}: ${actual.toFixed(1)}&deg;C`;
 
       if (target) {
         const sign = target >= actual ? " \u21D7 " : " \u21D8 ";
-        output += sign + _.sprintf("%.1f&deg;C", target);
+        output += `${sign}${target.toFixed(1)}&deg;C`;
       }
 
       return output;
