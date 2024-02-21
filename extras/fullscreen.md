@@ -4,43 +4,43 @@ layout: plugin
 id: fullscreen
 title: OctoPrint-Fullscreen
 description: Open webcam in fullscreen mode
-author: Mike Ratcliffe
+authors:
+  - Paul de Vries
+  - Mike Ratcliffe
 license: AGPLv3
 
 # TODO
-date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
+date: 2024-02-20
 
 homepage: https://github.com/MikeRatcliffe/OctoPrint-FullScreen
 source: https://github.com/MikeRatcliffe/OctoPrint-FullScreen
 archive: https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
 
-# TODO set this to true if your plugin uses the dependency_links setup parameter to include
+# TODO
+# Set this to true if your plugin uses the dependency_links setup parameter to include
 # library versions not yet published on PyPi. SHOULD ONLY BE USED IF THERE IS NO OTHER OPTION!
 follow_dependency_links: false
 
 # TODO
 tags:
-  - a list
-  - of tags
-  - that apply
-  - to your plugin
-  - (take a look at the existing plugins for what makes sense here)
+  - fullscreen
+  - webcam
+  - camera
+  - ui
+  - display
+  - progress
+  - status
 
 # TODO
 screenshots:
-  - url: url of a screenshot
-    alt: alt-text of a screenshot
-    caption: caption of a screenshot
-  - url: url of another screenshot
-    alt: alt-text of another screenshot
-    caption: caption of another screenshot
-  - ...
+  - url: https://raw.githubusercontent.com/MikeRatcliffe/OctoPrint-FullScreen/master/extras/Fullscreen%20Webcam.jpg
+    alt: Fullscreen Webcam
+    caption: Fullscreen Webcam
 
 # TODO
 featuredimage: url of a featured image for your plugin
 
 compatibility:
-  # list of compatible versions, for example 1.2.0. If left empty no specific version requirement will be assumed
   octoprint:
     - 1.2.0
 
@@ -49,6 +49,9 @@ compatibility:
     - linux
     - windows
     - macos
+    - freebsd
+
+  python: ">=3,<4"
 ---
 
 **TODO**: Longer description of your plugin, configuration examples etc. This part will be visible on the page at

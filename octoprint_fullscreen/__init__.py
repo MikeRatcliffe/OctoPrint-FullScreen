@@ -32,9 +32,9 @@ class FullscreenPlugin(
                 displayName="Fullscreen Plugin",
                 displayVersion=self._plugin_version,
                 type="github_release",
+                current=self._plugin_version,
                 user="MikeRatcliffe",
                 repo="OctoPrint-FullScreen",
-                current=self._plugin_version,
                 pip="https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/{target_version}.zip",
             )
         )
