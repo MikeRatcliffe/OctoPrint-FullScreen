@@ -8,7 +8,10 @@
 #  - Download Zip
 
 name: Build Plugin Release - Action
-on: []
+on:
+  push:
+    tags:
+      - v*
 jobs:
   Build-Release-ZIP-Action:
     runs-on: ubuntu-latest
