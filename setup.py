@@ -71,7 +71,7 @@ plugin_ignored_packages = []
 #         "https://github.com/user/repo/archive/master.zip#egg=dependency-dev"
 #       ]
 #     }
-additional_setup_parameters = {}
+additional_setup_parameters = {"python_requires": ">=3,<4"}
 
 ###############################################################################
 
