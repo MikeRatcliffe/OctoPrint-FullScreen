@@ -1,17 +1,6 @@
 {
   "rules": {
-    "alpha-value-notation": [
-      "percentage",
-      {
-        "exceptProperties": [
-          "opacity",
-          "fill-opacity",
-          "flood-opacity",
-          "stop-opacity",
-          "stroke-opacity"
-        ]
-      }
-    ],
+    "alpha-value-notation": "number",
     "at-rule-empty-line-before": [
       "always",
       {
@@ -20,7 +9,7 @@
       }
     ],
     "at-rule-no-vendor-prefix": true,
-    "color-function-notation": "modern",
+    "color-function-notation": "legacy",
     "color-hex-length": "short",
     "comment-empty-line-before": [
       "always",
