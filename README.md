@@ -13,7 +13,7 @@ or manually using this URL:
 
 ## Other Extensions
 
-If you have the awesome DisplayLayerProgress plugin, then the layer progress will also be displayed by this plugin.
+If you have the awesome [DisplayLayerProgress](https://plugins.octoprint.org/plugins/DisplayLayerProgress/) plugin, then the layer progress will also be displayed by this plugin.
 
 ## Supported Browsers
 
