@@ -6,10 +6,11 @@ This plugin will allow you to open the webcam feed in fullscreen mode by double 
 
 ## Setup
 
-Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html)
-or manually using this URL:
+Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html) or manually using this URL:
 
-    https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
+```sh
+https://github.com/MikeRatcliffe/OctoPrint-FullScreen/archive/master.zip
+```
 
 ## Other Extensions
 
@@ -22,3 +23,59 @@ If you have the awesome [DisplayLayerProgress](https://plugins.octoprint.org/plu
 - Firefox
 - Chrome
 - Brave
+
+## Development Environment
+
+### Octoprint Dev
+
+> https://docs.octoprint.org/en/master/development/environment.html#mac-os-x
+
+#### Summary
+
+```sh
+xcode-select --install
+sudo xcodebuild
+brew install python
+python -m ensurepip --upgrade
+pip install virtualenv
+```
+
+```shell
+cd ~/devel
+git clone https://github.com/OctoPrint/OctoPrint.git
+cd OctoPrint
+virtualenv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -e '.[develop,plugins]'
+pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+```
+
+```shell
+source ./venv/bin/activate
+octoprint serve
+```
+
+Listening on `http://0.0.0.0:5000` and `http://[::]:5000`
+
+### Plugin Dev
+
+> https://docs.octoprint.org/en/master/plugins/gettingstarted.html
+
+#### TL:DR
+
+```shell
+cd ~/Projects
+git clone git@github.com:MikeRatcliffe/OctoPrint-FullScreen.git
+cd OctoPrint-FullScreen
+source ../OctoPrint/venv/bin/activate
+octoprint dev plugin:install
+```
+
+#### Test Webcams:
+
+- Kirchhoff Institute for Physics, Germany
+  - http://pendelcam.kip.uni-heidelberg.de/mjpg/video.mjpg
+- International Center for Hellenic and Mediterranean Studies (DIKEMES), Athens
+  - http://view.dikemes.edu.gr/mjpg/video.mjpg
