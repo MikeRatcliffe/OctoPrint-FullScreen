@@ -1,11 +1,12 @@
 {
   "recommendations": [
-    "ms-python.black-formatter",
-    "samuelcolvin.jinjahtml",
-    "ms-python.flake8",
-    "vincaslt.highlight-matching-tag",
-    "stylelint.vscode-stylelint",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint"
+    "ms-python.black-formatter",
+    "ms-python.flake8",
+    "samuelcolvin.jinjahtml",
+    "stylelint.vscode-stylelint",
+    "vincaslt.highlight-matching-tag"
   ]
 }
