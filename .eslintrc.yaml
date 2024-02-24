@@ -30,3 +30,5 @@ rules:
     eqeqeq:
         - error
         - smart
+    no-var:
+        - error
