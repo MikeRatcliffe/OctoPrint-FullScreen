@@ -90,13 +90,43 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
   pointer-events: all;
   display: none;
   position: absolute;
-  right: 0;
-  bottom: 0;
   color: #fff;
   padding: 10px;
   margin: 5px;
   background: rgba(0, 0, 0, 0.25);
   border-radius: 10px !important;
+}
+
+#fullscreen-bar.topleft {
+  top: 0;
+  left: 0;
+}
+
+#fullscreen-bar.topmiddle {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#fullscreen-bar.topright {
+  top: 0;
+  right: 0;
+}
+
+#fullscreen-bar.bottomright {
+  bottom: 0;
+  right: 0;
+}
+
+#fullscreen-bar.bottomleft {
+  bottom: 0;
+  left: 0;
+}
+
+#fullscreen-bar.bottommiddle {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 #fullscreen-bar #fullscreen-buttons #fullscreen-toggle {
@@ -118,7 +148,7 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
 #fullscreen-tool-info p,
 #fullscreen-print-info p {
   text-align: right;
-  line-height: 10px;
+  line-height: 1em;
   margin: 2px 0;
 }
 
@@ -127,7 +157,6 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
   margin: 0;
   padding: 5px 10px;
   display: inline-block;
-  line-height: 20px;
   overflow: hidden;
 }
 
@@ -170,4 +199,12 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
   top: 0;
   left: 0;
   z-index: 99;
+}
+
+.octoprint-fullscreen-swatch {
+  display:inline-block;width:28px;height:28px;border:1px solid rgb(204, 204, 204);border-radius:4px;cursor:pointer;
+}
+
+.octoprint-fullscreen-swatch-text {
+  top:-11px;position:relative;font-family:monospace;width:20em;
 }
