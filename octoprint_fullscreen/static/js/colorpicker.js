@@ -5,66 +5,76 @@
  * Copyright 2017-2023 Andreas Borgen (https://github.com/Sphinxxxx), Adam Brooks (https://github.com/dissimulate)
  * Released under the ISC license.
  */
-(function (global, factory) {
-  typeof exports === "object" && typeof module !== "undefined"
-    ? (module.exports = factory())
-    : typeof define === "function" && define.amd
-    ? define(factory)
-    : ((global =
-        typeof globalThis !== "undefined" ? globalThis : global || self),
-      (global.octoprintFullscreenVanillaPicker = factory()));
-})(this, function () {
+// eslint-disable-next-line no-unused-vars
+let octoprintFullscreenVanillaPicker;
+
+(function () {
   "use strict";
 
-  var classCallCheck = function (instance, Constructor) {
+  const classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   };
 
-  var createClass = (function () {
+  const createClass = (function () {
     function defineProperties(target, props) {
-      for (var i = 0; i < props.length; i++) {
-        var descriptor = props[i];
+      for (let i = 0; i < props.length; i++) {
+        const descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) {
+          descriptor.writable = true;
+        }
         Object.defineProperty(target, descriptor.key, descriptor);
       }
     }
 
     return function (Constructor, protoProps, staticProps) {
-      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-      if (staticProps) defineProperties(Constructor, staticProps);
+      if (protoProps) {
+        defineProperties(Constructor.prototype, protoProps);
+      }
+      if (staticProps) {
+        defineProperties(Constructor, staticProps);
+      }
       return Constructor;
     };
   })();
 
-  var slicedToArray = (function () {
+  const slicedToArray = (function () {
     function sliceIterator(arr, i) {
-      var _arr = [];
-      var _n = true;
-      var _d = false;
-      var _e = undefined;
+      const _arr = [];
+      let _n = true;
+      let _d = false;
+      let _e = undefined;
+      let _i;
+      let _s;
 
       try {
         for (
-          var _i = arr[Symbol.iterator](), _s;
+          _i = arr[Symbol.iterator]();
           !(_n = (_s = _i.next()).done);
           _n = true
         ) {
           _arr.push(_s.value);
 
-          if (i && _arr.length === i) break;
+          if (i && _arr.length === i) {
+            break;
+          }
         }
       } catch (err) {
         _d = true;
         _e = err;
       } finally {
         try {
-          if (!_n && _i["return"]) _i["return"]();
+          if (!_n && _i["return"]) {
+            _i["return"]();
+          }
         } finally {
-          if (_d) throw _e;
+          if (_d) {
+            // eslint-disable-next-line no-unsafe-finally
+            throw _e;
+          }
         }
       }
 
@@ -84,22 +94,7 @@
     };
   })();
 
-  String.prototype.startsWith =
-    String.prototype.startsWith ||
-    function (needle) {
-      return this.indexOf(needle) === 0;
-    };
-  String.prototype.padStart =
-    String.prototype.padStart ||
-    function (len, pad) {
-      var str = this;
-      while (str.length < len) {
-        str = pad + str;
-      }
-      return str;
-    };
-
-  var colorNames = {
+  const colorNames = {
     cb: "0f8ff",
     tqw: "aebd7",
     q: "-ffff",
@@ -244,29 +239,29 @@
   };
 
   function printNum(num) {
-    var decs =
+    const decs =
       arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-    var str =
+    const str =
       decs > 0
         ? num.toFixed(decs).replace(/0+$/, "").replace(/\.$/, "")
         : num.toString();
     return str || "0";
   }
 
-  var Color = (function () {
+  const Color = (function () {
     function Color(r, g, b, a) {
       classCallCheck(this, Color);
 
-      var that = this;
+      const that = this;
       function parseString(input) {
         if (input.startsWith("hsl")) {
-          var _input$match$map = input.match(/([\-\d\.e]+)/g).map(Number),
-            _input$match$map2 = slicedToArray(_input$match$map, 4),
-            h = _input$match$map2[0],
-            s = _input$match$map2[1],
-            l = _input$match$map2[2],
-            _a = _input$match$map2[3];
+          const _input$match$map = input.match(/([-\d.e]+)/g).map(Number);
+          const _input$match$map2 = slicedToArray(_input$match$map, 4);
+          let h = _input$match$map2[0];
+          let s = _input$match$map2[1];
+          let l = _input$match$map2[2];
+          let _a = _input$match$map2[3];
 
           if (_a === undefined) {
             _a = 1;
@@ -277,12 +272,12 @@
           l /= 100;
           that.hsla = [h, s, l, _a];
         } else if (input.startsWith("rgb")) {
-          var _input$match$map3 = input.match(/([\-\d\.e]+)/g).map(Number),
-            _input$match$map4 = slicedToArray(_input$match$map3, 4),
-            _r = _input$match$map4[0],
-            _g = _input$match$map4[1],
-            _b = _input$match$map4[2],
-            _a2 = _input$match$map4[3];
+          const _input$match$map3 = input.match(/([-\d.e]+)/g).map(Number);
+          const _input$match$map4 = slicedToArray(_input$match$map3, 4);
+          const _r = _input$match$map4[0];
+          const _g = _input$match$map4[1];
+          const _b = _input$match$map4[2];
+          let _a2 = _input$match$map4[3];
 
           if (_a2 === undefined) {
             _a2 = 1;
@@ -298,11 +293,12 @@
         }
       }
 
-      if (r === undefined);
-      else if (Array.isArray(r)) {
+      if (r === undefined) {
+        // Do nothing
+      } else if (Array.isArray(r)) {
         this.rgba = r;
       } else if (b === undefined) {
-        var color = r && "" + r;
+        const color = r && "" + r;
         if (color) {
           parseString(color.toLowerCase());
         }
@@ -317,10 +313,10 @@
         {
           key: "printRGB",
           value: function printRGB(alpha) {
-            var rgb = alpha ? this.rgba : this.rgba.slice(0, 3),
-              vals = rgb.map(function (x, i) {
-                return printNum(x, i === 3 ? 3 : 0);
-              });
+            const rgb = alpha ? this.rgba : this.rgba.slice(0, 3);
+            const vals = rgb.map(function (x, i) {
+              return printNum(x, i === 3 ? 3 : 0);
+            });
 
             return alpha ? "rgba(" + vals + ")" : "rgb(" + vals + ")";
           },
@@ -328,13 +324,13 @@
         {
           key: "printHSL",
           value: function printHSL(alpha) {
-            var mults = [360, 100, 100, 1],
-              suff = ["", "%", "%", ""];
+            const mults = [360, 100, 100, 1];
+            const suff = ["", "%", "%", ""];
 
-            var hsl = alpha ? this.hsla : this.hsla.slice(0, 3),
-              vals = hsl.map(function (x, i) {
-                return printNum(x * mults[i], i === 3 ? 3 : 1) + suff[i];
-              });
+            const hsl = alpha ? this.hsla : this.hsla.slice(0, 3);
+            const vals = hsl.map(function (x, i) {
+              return printNum(x * mults[i], i === 3 ? 3 : 1) + suff[i];
+            });
 
             return alpha ? "hsla(" + vals + ")" : "hsl(" + vals + ")";
           },
@@ -342,7 +338,7 @@
         {
           key: "printHex",
           value: function printHex(alpha) {
-            var hex = this.hex;
+            const hex = this.hex;
             return alpha ? hex : hex.substring(0, 7);
           },
         },
@@ -415,12 +411,10 @@
         {
           key: "hex",
           get: function get() {
-            var rgb = this.rgba,
-              hex = rgb.map(function (x, i) {
-                return i < 3
-                  ? x.toString(16)
-                  : Math.round(x * 255).toString(16);
-              });
+            const rgb = this.rgba;
+            const hex = rgb.map(function (x, i) {
+              return i < 3 ? x.toString(16) : Math.round(x * 255).toString(16);
+            });
 
             return (
               "#" +
@@ -440,7 +434,7 @@
         {
           key: "hexToRgb",
           value: function hexToRgb(input) {
-            var hex = (input.startsWith("#") ? input.slice(1) : input)
+            const hex = (input.startsWith("#") ? input.slice(1) : input)
               .replace(/^(\w{3})$/, "$1F")
               .replace(/^(\w)(\w)(\w)(\w)$/, "$1$1$2$2$3$3$4$4")
               .replace(/^(\w{6})$/, "$1FF");
@@ -449,7 +443,7 @@
               throw new Error("Unknown hex color; " + input);
             }
 
-            var rgba = hex
+            const rgba = hex
               .match(/^(\w\w)(\w\w)(\w\w)(\w\w)$/)
               .slice(1)
               .map(function (x) {
@@ -463,42 +457,42 @@
         {
           key: "nameToRgb",
           value: function nameToRgb(input) {
-            var hash = input
-                .toLowerCase()
-                .replace("at", "T")
-                .replace(/[aeiouyldf]/g, "")
-                .replace("ght", "L")
-                .replace("rk", "D")
-                .slice(-5, 4),
-              hex = colorNames[hash];
+            const hash = input
+              .toLowerCase()
+              .replace("at", "T")
+              .replace(/[aeiouyldf]/g, "")
+              .replace("ght", "L")
+              .replace("rk", "D")
+              .slice(-5, 4);
+            const hex = colorNames[hash];
             return hex === undefined
               ? hex
-              : Color.hexToRgb(hex.replace(/\-/g, "00").padStart(6, "f"));
+              : Color.hexToRgb(hex.replace(/-/g, "00").padStart(6, "f"));
           },
         },
         {
           key: "rgbToHsl",
           value: function rgbToHsl(_ref) {
-            var _ref2 = slicedToArray(_ref, 4),
-              r = _ref2[0],
-              g = _ref2[1],
-              b = _ref2[2],
-              a = _ref2[3];
+            const _ref2 = slicedToArray(_ref, 4);
+            let r = _ref2[0];
+            let g = _ref2[1];
+            let b = _ref2[2];
+            const a = _ref2[3];
 
             r /= 255;
             g /= 255;
             b /= 255;
 
-            var max = Math.max(r, g, b),
-              min = Math.min(r, g, b);
-            var h = void 0,
-              s = void 0,
-              l = (max + min) / 2;
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            let h = void 0;
+            let s = void 0;
+            const l = (max + min) / 2;
 
             if (max === min) {
               h = s = 0;
             } else {
-              var d = max - min;
+              const d = max - min;
               s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
               switch (max) {
                 case r:
@@ -521,37 +515,47 @@
         {
           key: "hslToRgb",
           value: function hslToRgb(_ref3) {
-            var _ref4 = slicedToArray(_ref3, 4),
-              h = _ref4[0],
-              s = _ref4[1],
-              l = _ref4[2],
-              a = _ref4[3];
+            const _ref4 = slicedToArray(_ref3, 4);
+            const h = _ref4[0];
+            const s = _ref4[1];
+            const l = _ref4[2];
+            const a = _ref4[3];
 
-            var r = void 0,
-              g = void 0,
-              b = void 0;
+            let r = void 0;
+            let g = void 0;
+            let b = void 0;
 
             if (s === 0) {
               r = g = b = l;
             } else {
-              var hue2rgb = function hue2rgb(p, q, t) {
-                if (t < 0) t += 1;
-                if (t > 1) t -= 1;
-                if (t < 1 / 6) return p + (q - p) * 6 * t;
-                if (t < 1 / 2) return q;
-                if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+              const hue2rgb = function hue2rgb(p, q, t) {
+                if (t < 0) {
+                  t += 1;
+                }
+                if (t > 1) {
+                  t -= 1;
+                }
+                if (t < 1 / 6) {
+                  return p + (q - p) * 6 * t;
+                }
+                if (t < 1 / 2) {
+                  return q;
+                }
+                if (t < 2 / 3) {
+                  return p + (q - p) * (2 / 3 - t) * 6;
+                }
                 return p;
               };
 
-              var q = l < 0.5 ? l * (1 + s) : l + s - l * s,
-                p = 2 * l - q;
+              const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+              const p = 2 * l - q;
 
               r = hue2rgb(p, q, h + 1 / 3);
               g = hue2rgb(p, q, h);
               b = hue2rgb(p, q, h - 1 / 3);
             }
 
-            var rgba = [r * 255, g * 255, b * 255].map(Math.round);
+            const rgba = [r * 255, g * 255, b * 255].map(Math.round);
             rgba[3] = a;
 
             return rgba;
@@ -562,7 +566,7 @@
     return Color;
   })();
 
-  var EventBucket = (function () {
+  const EventBucket = (function () {
     function EventBucket() {
       classCallCheck(this, EventBucket);
 
@@ -587,7 +591,7 @@
           key: "remove",
           value: function remove(target, type, handler) {
             this._events = this._events.filter(function (e) {
-              var isMatch = true;
+              let isMatch = true;
               if (target && target !== e.target) {
                 isMatch = false;
               }
@@ -628,13 +632,13 @@
   })();
 
   function parseHTML(htmlString) {
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.innerHTML = htmlString;
     return div.firstElementChild;
   }
 
   function dragTrack(eventBucket, area, callback) {
-    var dragging = false;
+    let dragging = false;
 
     function clamp(val, min, max) {
       return Math.max(min, Math.min(val, max));
@@ -650,20 +654,20 @@
 
       e.preventDefault();
 
-      var bounds = area.getBoundingClientRect(),
-        w = bounds.width,
-        h = bounds.height,
-        x = info.clientX,
-        y = info.clientY;
+      const bounds = area.getBoundingClientRect();
+      const w = bounds.width;
+      const h = bounds.height;
+      const x = info.clientX;
+      const y = info.clientY;
 
-      var relX = clamp(x - bounds.left, 0, w),
-        relY = clamp(y - bounds.top, 0, h);
+      const relX = clamp(x - bounds.left, 0, w);
+      const relY = clamp(y - bounds.top, 0, h);
 
       callback(relX / w, relY / h);
     }
 
     function onMouse(e, starting) {
-      var button = e.buttons === undefined ? e.which : e.buttons;
+      const button = e.buttons === undefined ? e.which : e.buttons;
       if (button === 1) {
         onMove(e, e, starting);
       } else {
@@ -687,24 +691,24 @@
     });
     eventBucket.add(window, "mousemove", onMouse);
     eventBucket.add(area, "touchmove", onTouch);
-    eventBucket.add(window, "mouseup", function (e) {
+    eventBucket.add(window, "mouseup", function () {
       dragging = false;
     });
-    eventBucket.add(area, "touchend", function (e) {
+    eventBucket.add(area, "touchend", function () {
       dragging = false;
     });
-    eventBucket.add(area, "touchcancel", function (e) {
+    eventBucket.add(area, "touchcancel", function () {
       dragging = false;
     });
   }
 
-  var BG_TRANSP =
+  const BG_TRANSP =
     "linear-gradient(45deg, lightgrey 25%, transparent 25%, transparent 75%, lightgrey 75%) 0 0 / 2em 2em,\n                   linear-gradient(45deg, lightgrey 25%,       white 25%,       white 75%, lightgrey 75%) 1em 1em / 2em 2em";
-  var HUES = 360;
+  const HUES = 360;
 
-  var EVENT_KEY = "keydown",
-    EVENT_CLICK_OUTSIDE = "mousedown",
-    EVENT_TAB_MOVE = "focusin";
+  const EVENT_KEY = "keydown";
+  const EVENT_CLICK_OUTSIDE = "mousedown";
+  const EVENT_TAB_MOVE = "focusin";
 
   function $(selector, context) {
     return (context || document).querySelector(selector);
@@ -725,7 +729,7 @@
     });
   }
 
-  var octoprintFullscreenVanillaPicker = (function () {
+  octoprintFullscreenVanillaPicker = (function () {
     function octoprintFullscreenVanillaPicker(options) {
       classCallCheck(this, octoprintFullscreenVanillaPicker);
 
@@ -756,15 +760,15 @@
       {
         key: "setOptions",
         value: function setOptions(options) {
-          var _this = this;
+          const _this = this;
 
           if (!options) {
             return;
           }
-          var settings = this.settings;
+          const settings = this.settings;
 
           function transfer(source, target, skipKeys) {
-            for (var key in source) {
+            for (const key in source) {
               if (skipKeys && skipKeys.indexOf(key) >= 0) {
                 continue;
               }
@@ -800,15 +804,15 @@
               this.onClose = options.onClose;
             }
 
-            var col = options.color || options.colour;
+            const col = options.color || options.colour;
             if (col) {
               this._setColor(col);
             }
           }
 
-          var parent = settings.parent;
+          const parent = settings.parent;
           if (parent && settings.popup && !this._popupInited) {
-            var openProxy = function openProxy(e) {
+            const openProxy = function openProxy(e) {
               return _this.openHandler(e);
             };
 
@@ -830,7 +834,7 @@
 
             this.settings.parent.style.pointerEvents = "none";
 
-            var toFocus =
+            const toFocus =
               e && e.type === EVENT_KEY ? this._domEdit : this.domElement;
             setTimeout(function () {
               return toFocus.focus();
@@ -845,8 +849,8 @@
       {
         key: "closeHandler",
         value: function closeHandler(e) {
-          var event = e && e.type;
-          var doHide = false;
+          const event = e && e.type;
+          let doHide = false;
 
           if (!e) {
             doHide = true;
@@ -854,7 +858,7 @@
             event === EVENT_CLICK_OUTSIDE ||
             event === EVENT_TAB_MOVE
           ) {
-            var knownTime = (this.__containedEvent || 0) + 100;
+            const knownTime = (this.__containedEvent || 0) + 100;
             if (e.timeStamp > knownTime) {
               doHide = true;
             }
@@ -905,7 +909,7 @@
           }
 
           flags = flags || {};
-          var c = void 0;
+          let c = void 0;
           try {
             c = new Color(color);
           } catch (ex) {
@@ -916,7 +920,7 @@
           }
 
           if (!this.settings.alpha) {
-            var hsla = c.hsla;
+            const hsla = c.hsla;
             hsla[3] = 1;
             c.hsla = hsla;
           }
@@ -933,23 +937,23 @@
       {
         key: "show",
         value: function show() {
-          var parent = this.settings.parent;
+          const parent = this.settings.parent;
           if (!parent) {
             return false;
           }
 
           if (this.domElement) {
-            var toggled = this._toggleDOM(true);
+            const toggled = this._toggleDOM(true);
 
             this._setPosition();
 
             return toggled;
           }
 
-          var html =
+          const html =
             this.settings.template ||
             '<div class="picker_wrapper" tabindex="-1"><div class="picker_arrow"></div><div class="picker_hue picker_slider"><div class="picker_selector"></div></div><div class="picker_sl"><div class="picker_selector"></div></div><div class="picker_alpha picker_slider"><div class="picker_selector"></div></div><div class="picker_editor"><input aria-label="Type a color name or hex value"/></div><div class="picker_sample"></div><div class="picker_done"><button>Ok</button></div><div class="picker_cancel"><button>Cancel</button></div></div>';
-          var wrapper = parseHTML(html);
+          const wrapper = parseHTML(html);
 
           this.domElement = wrapper;
           this._domH = $(".picker_hue", wrapper);
@@ -1004,11 +1008,11 @@
       {
         key: "_bindEvents",
         value: function _bindEvents() {
-          var _this2 = this;
+          const _this2 = this;
 
-          var that = this,
-            dom = this.domElement,
-            events = this._events;
+          const that = this;
+          const dom = this.domElement;
+          const events = this._events;
 
           function addEvent(target, type, handler) {
             events.add(target, type, handler);
@@ -1018,7 +1022,7 @@
             return e.preventDefault();
           });
 
-          dragTrack(events, this._domH, function (x, y) {
+          dragTrack(events, this._domH, function (x) {
             return that._setHSLA(x);
           });
 
@@ -1032,17 +1036,17 @@
             });
           }
 
-          var editInput = this._domEdit;
+          const editInput = this._domEdit;
           {
-            addEvent(editInput, "input", function (e) {
+            addEvent(editInput, "input", function () {
               that._setColor(this.value, {
                 fromEditor: true,
                 failSilently: true,
               });
             });
 
-            addEvent(editInput, "focus", function (e) {
-              var input = this;
+            addEvent(editInput, "focus", function () {
+              const input = this;
 
               if (input.selectionStart === input.selectionEnd) {
                 input.select();
@@ -1051,7 +1055,7 @@
           }
 
           this._ifPopup(function () {
-            var popupCloseProxy = function popupCloseProxy(e) {
+            const popupCloseProxy = function popupCloseProxy(e) {
               return _this2.closeHandler(e);
             };
 
@@ -1059,7 +1063,7 @@
             addEvent(window, EVENT_TAB_MOVE, popupCloseProxy);
             onKey(events, dom, ["Esc", "Escape"], popupCloseProxy);
 
-            var timeKeeper = function timeKeeper(e) {
+            const timeKeeper = function timeKeeper(e) {
               _this2.__containedEvent = e.timeStamp;
             };
             addEvent(dom, EVENT_CLICK_OUTSIDE, timeKeeper);
@@ -1069,7 +1073,7 @@
             addEvent(_this2._domCancel, "click", popupCloseProxy);
           });
 
-          var onDoneProxy = function onDoneProxy(e) {
+          const onDoneProxy = function onDoneProxy(e) {
             _this2._ifPopup(function () {
               return _this2.closeHandler(e);
             });
@@ -1084,8 +1088,8 @@
       {
         key: "_setPosition",
         value: function _setPosition() {
-          var parent = this.settings.parent,
-            elm = this.domElement;
+          const parent = this.settings.parent;
+          const elm = this.domElement;
 
           if (parent !== elm.parentNode) {
             parent.appendChild(elm);
@@ -1096,7 +1100,7 @@
               parent.style.position = "relative";
             }
 
-            var cssClass = popup === true ? "popup_right" : "popup_" + popup;
+            const cssClass = popup === true ? "popup_right" : "popup_" + popup;
 
             ["popup_top", "popup_bottom", "popup_left", "popup_right"].forEach(
               function (c) {
@@ -1117,8 +1121,8 @@
         value: function _setHSLA(h, s, l, a, flags) {
           flags = flags || {};
 
-          var col = this.colour,
-            hsla = col.hsla;
+          const col = this.colour;
+          const hsla = col.hsla;
 
           [h, s, l, a].forEach(function (x, i) {
             if (x || x === 0) {
@@ -1142,18 +1146,18 @@
           }
           flags = flags || {};
 
-          var col = this.colour,
-            hsl = col.hsla,
-            cssHue = "hsl(" + hsl[0] * HUES + ", 100%, 50%)",
-            cssHSL = col.hslString,
-            cssHSLA = col.hslaString;
+          const col = this.colour;
+          const hsl = col.hsla;
+          const cssHue = "hsl(" + hsl[0] * HUES + ", 100%, 50%)";
+          const cssHSL = col.hslString;
+          const cssHSLA = col.hslaString;
 
-          var uiH = this._domH,
-            uiSL = this._domSL,
-            uiA = this._domA,
-            thumbH = $(".picker_selector", uiH),
-            thumbSL = $(".picker_selector", uiSL),
-            thumbA = $(".picker_selector", uiA);
+          const uiH = this._domH;
+          const uiSL = this._domSL;
+          const uiA = this._domA;
+          const thumbH = $(".picker_selector", uiH);
+          const thumbSL = $(".picker_selector", uiSL);
+          const thumbA = $(".picker_selector", uiA);
 
           function posX(parent, child, relX) {
             child.style.left = relX * 100 + "%";
@@ -1173,17 +1177,17 @@
 
           posY(uiA, thumbA, 1 - hsl[3]);
 
-          var opaque = cssHSL,
-            transp = opaque.replace("hsl", "hsla").replace(")", ", 0)"),
-            bg = "linear-gradient(" + [opaque, transp] + ")";
+          const opaque = cssHSL;
+          const transp = opaque.replace("hsl", "hsla").replace(")", ", 0)");
+          const bg = "linear-gradient(" + [opaque, transp] + ")";
 
           this._domA.style.background = bg + ", " + BG_TRANSP;
 
           if (!flags.fromEditor) {
-            var format = this.settings.editorFormat,
-              alpha = this.settings.alpha;
+            const format = this.settings.editorFormat;
+            const alpha = this.settings.alpha;
 
-            var value = void 0;
+            let value = void 0;
             switch (format) {
               case "rgb":
                 value = col.printRGB(alpha);
@@ -1213,13 +1217,13 @@
       {
         key: "_toggleDOM",
         value: function _toggleDOM(toVisible) {
-          var dom = this.domElement;
+          const dom = this.domElement;
           if (!dom) {
             return false;
           }
 
-          var displayStyle = toVisible ? "" : "none",
-            toggle = dom.style.display !== displayStyle;
+          const displayStyle = toVisible ? "" : "none";
+          const toggle = dom.style.display !== displayStyle;
 
           if (toggle) {
             dom.style.display = displayStyle;
@@ -1228,8 +1232,7 @@
         },
       },
     ]);
+
     return octoprintFullscreenVanillaPicker;
   })();
-
-  return octoprintFullscreenVanillaPicker;
-});
+})();
