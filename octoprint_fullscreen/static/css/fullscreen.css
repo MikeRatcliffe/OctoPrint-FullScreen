@@ -213,3 +213,8 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
 .octoprint-fullscreen-swatch-text {
   top:-11px;position:relative;font-family:monospace;width:20em;
 }
+
+#octoprint-fullscreen-reset {
+  float: right;
+  margin-right: 20px;
+}

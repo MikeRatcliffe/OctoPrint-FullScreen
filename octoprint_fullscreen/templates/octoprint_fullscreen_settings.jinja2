@@ -1,30 +1,35 @@
-<h3>Octoprint Fullscreen <small>{{ _('Version') }}: <span data-bind="text: settings.plugins.octoprint_fullscreen.installed_version"></span></small></h3>
+<h3>{{ _('Octoprint Fullscreen') }} <small>{{ _('Version') }}: <span data-bind="text: settings.plugins.octoprint_fullscreen.installed_version"></span></small></h3>
 <form class="form-horizontal">
+    <h4>{{ _('General') }}</h4>
+    <div class="control-group">
+        <label class="control-label" for="settings-fullscreen-info-position">{{ _('Position') }}</label>
+        <div class="controls">
+            <select data-bind="options: settings.plugins.octoprint_fullscreen.positions, optionsText: 'name',optionsValue: 'value', value: settings.plugins.octoprint_fullscreen.position" id="settings-fullscreen-info-position"></select>
+        </div>
+    </div>
     <div class="control-group">
         <label class="control-label" for="settings-fullscreen-info-font_size">{{ _('Font size') }}</label>
         <div class="controls">
             <select data-bind="options: settings.plugins.octoprint_fullscreen.font_sizes, value: settings.plugins.octoprint_fullscreen.font_size" id="settings-fullscreen-info-font_size"></select>
         </div>
     </div>
+
+    <h4>{{ _('Colors') }}</h4>
     <div class="control-group">
-        <label class="control-label" for="settings-fullscreen-info-position">{{ _('Info box position') }}</label>
-        <div class="controls">
-            <select data-bind="options: settings.plugins.octoprint_fullscreen.positions, optionsText: 'name',optionsValue: 'value', value: settings.plugins.octoprint_fullscreen.position" id="settings-fullscreen-info-position"></select>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="octoprint-fullscreen-swatchfg">{{ _('Foreground Color') }}</label>
+        <label class="control-label" for="octoprint-fullscreen-swatchfg">{{ _('Foreground') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-swatchfg" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-swatchfgtext" class="octoprint-fullscreen-swatch-text" readonly="" />
         </div>
 
-        <label class="control-label" for="octoprint-fullscreen-swatchbg">{{ _('Background Color') }}</label>
+        <label class="control-label" for="octoprint-fullscreen-swatchbg">{{ _('Background') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-swatchbg" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-swatchbgtext" class="octoprint-fullscreen-swatch-text" readonly="" />
         </div>
     </div>
+
+    <h4>{{ _('Border') }}</h4>
     <div class="control-group">
         <label class="control-label" for="octoprint-fullscreen-border">{{ _('Border') }}</label>
         <div class="controls">
@@ -39,23 +44,30 @@
         </div>
     </div>
 
+    <h4>{{ _('Buttons') }}</h4>
     <div class="control-group">
-        <label class="control-label" for="octoprint-fullscreen-button-foreground">{{ _('Button Foreground') }}</label>
+        <label class="control-label" for="octoprint-fullscreen-button-foreground">{{ _('Foreground') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-button-foreground" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-button-foregroundtext" class="octoprint-fullscreen-swatch-text" readonly="" />
         </div>
 
-        <label class="control-label" for="octoprint-fullscreen-button-background-top">{{ _('Button Background Top') }}</label>
+        <label class="control-label" for="octoprint-fullscreen-button-background-top">{{ _('Background Top') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-button-background-top" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-button-background-toptext" class="octoprint-fullscreen-swatch-text" readonly="" />
         </div>
 
-        <label class="control-label" for="octoprint-fullscreen-button-background-bottom">{{ _('Button Background Bottom') }}</label>
+        <label class="control-label" for="octoprint-fullscreen-button-background-bottom">{{ _('Background Bottom') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-button-background-bottom" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-button-background-bottomtext" class="octoprint-fullscreen-swatch-text" readonly="" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <button id="octoprint-fullscreen-reset" class="btn">{{ _('Reset To Defaults') }}</button>
         </div>
     </div>
 </form>

@@ -17,6 +17,8 @@ class FullscreenPlugin(
         )
 
     def get_settings_defaults(self):
+        # If you change these default values be sure to also change the
+        # corresponding values in fullscreen_settings.py
         return dict(
             installed_version=self._plugin_version,
             font_size="14px",
@@ -33,7 +35,7 @@ class FullscreenPlugin(
                 "28px",
                 "30px",
             ],
-            position="topleft",
+            position="bottomright",
             positions=[
                 {"name": "Top Left", "value": "topleft"},
                 {"name": "Top Middle", "value": "topmiddle"},

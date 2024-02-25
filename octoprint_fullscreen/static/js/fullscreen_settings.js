@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  function OctoprintFullscreenSettingsViewModel([settingsView]) {
+  function OctoprintFullscreenSettingsViewModel([
+    settingsView,
+    octoprintFullscreenView,
+  ]) {
     this.settingsView = settingsView;
-
+    this.octoprintFullscreenView = octoprintFullscreenView;
     this.colorPickers = new Map();
 
     // We will populate settings in onStartupComplete().
@@ -13,7 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
     this.onStartupComplete = () => {
       this.settings = settingsView.settings.plugins.octoprint_fullscreen;
 
+      const resetButton = document.querySelector("#octoprint-fullscreen-reset");
+      resetButton.addEventListener("click", this.onResetClick);
+
       this.initSwatches();
+    };
+
+    this.onResetClick = () => {
+      // If you change these default values be sure to also change the
+      // corresponding values in __init__.py
+      this.settings.font_size("14px");
+      this.settings.position("bottomright");
+      this.settings.button_color_fg("rgba(51, 51, 51, 1)");
+      this.settings.button_color_bg_top("rgba(255, 255, 255, 1)");
+      this.settings.button_color_bg_bottom("rgba(230, 230, 230, 1)");
+      this.settings.color_fg("rgba(255, 255, 255, 1)");
+      this.settings.color_bg("rgba(0, 0, 0, 0.25)");
+      this.settings.color_border("rgba(68, 68, 68, 1)");
+      this.settings.has_border(true);
+
+      this.refreshColorPickers();
+      this.octoprintFullscreenView.updateStyles();
     };
 
     /**
@@ -155,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   OCTOPRINT_VIEWMODELS.push({
     construct: OctoprintFullscreenSettingsViewModel,
-    dependencies: ["settingsViewModel"],
+    dependencies: ["settingsViewModel", "fullscreenViewModel"],
     elements: [],
   });
 });
