@@ -215,12 +215,18 @@ document.addEventListener("DOMContentLoaded", () => {
       // Colors
       bar.style.color = this.settings.color_fg();
       bar.style.backgroundColor = this.settings.color_bg();
-      bar.style.borderWidth = "1px";
-      bar.style.borderStyle = "solid";
-      bar.style.borderColor = this.settings.color_border();
+
+      if (this.settings.has_border()) {
+        bar.style.borderWidth = "1px";
+        bar.style.borderStyle = "solid";
+        bar.style.borderColor = this.settings.color_border();
+      } else {
+        bar.style.borderWidth = "0px";
+        bar.style.borderStyle = "none";
+      }
 
       // TODO:
-      // Border colour
+      // Button colors
       // Bar or box
     };
 

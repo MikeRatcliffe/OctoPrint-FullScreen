@@ -45,6 +45,7 @@ class FullscreenPlugin(
             color_fg="rgba(255, 255, 255, 1)",
             color_bg="rgba(0, 0, 0, 0.25)",
             color_border="rgba(68, 68, 68, 1)",
+            has_border=True,
         )
 
     def get_template_vars(self):
@@ -57,6 +58,7 @@ class FullscreenPlugin(
             color_fg=self._settings.get(["color_fg"]),
             color_bg=self._settings.get(["color_bg"]),
             color_border=self._settings.get(["color_border"]),
+            has_border=self._settings.get(["has_border"]),
         )
 
     def get_template_configs(self):

@@ -24,7 +24,14 @@
             <div id="octoprint-fullscreen-swatchbg" class="octoprint-fullscreen-swatch"></div>
             <input type="text" id="octoprint-fullscreen-swatchbgtext" class="octoprint-fullscreen-swatch-text" readonly="" />
         </div>
-
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="octoprint-fullscreen-border">{{ _('Border') }}</label>
+        <div class="controls">
+            <input type="checkbox" id="octoprint-fullscreen-border" class="octoprint-fullscreen-border" data-bind="checked: settings.plugins.octoprint_fullscreen.has_border" />
+        </div>
+    </div>
+    <div class="control-group" data-bind="visible: settings.plugins.octoprint_fullscreen.has_border">
         <label class="control-label" for="octoprint-fullscreen-swatchborder">{{ _('Border Color') }}</label>
         <div class="controls">
             <div id="octoprint-fullscreen-swatchborder" class="octoprint-fullscreen-swatch"></div>
