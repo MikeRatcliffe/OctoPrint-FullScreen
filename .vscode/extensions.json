@@ -6,6 +6,7 @@
     "ms-python.black-formatter",
     "ms-python.flake8",
     "samuelcolvin.jinjahtml",
+    "stkb.rewrap",
     "stylelint.vscode-stylelint",
     "vincaslt.highlight-matching-tag"
   ]
