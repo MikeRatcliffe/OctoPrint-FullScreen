@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const pickerText = document.querySelector(textId);
 
         // eslint-disable-next-line no-undef
-        const vanillaPicker = new octoprintFullscreenVanillaPicker({
+        const colorPicker = new octoprintFullscreenVanillaPicker({
           fieldName,
           parent: picker,
           parentText: pickerText,
@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /**
          * Populate swatch and swatch text
          */
-        vanillaPicker.updateSwatch = function () {
+        colorPicker.updateSwatch = function () {
           // Inside this handler `this` is in the context of the swatch
           this.settings.parent.style.backgroundColor = this.color.rgbaString;
           this.settings.parentText.value = `${this.color.hex} ${this.color.rgbaString}`;
@@ -294,8 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const refreshColorPickers = this.refreshColorPickers;
 
         // Add custom "onClose" functionality:
-        vanillaPicker._closeHandler = vanillaPicker.closeHandler;
-        vanillaPicker.closeHandler = function (e) {
+        colorPicker._closeHandler = colorPicker.closeHandler;
+        colorPicker.closeHandler = function (e) {
           // Inside this handler `this` is in the context of the swatch
           if (
             e.target.dataset.testId === "settings-save" ||
@@ -318,10 +318,10 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Populate swatch and swatch text
-        vanillaPicker.updateSwatch();
+        colorPicker.updateSwatch();
 
         // Store the swatch
-        this.colorPickers.set(fieldName, vanillaPicker);
+        this.colorPickers.set(fieldName, colorPicker);
       }
     };
 
