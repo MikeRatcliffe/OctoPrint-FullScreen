@@ -133,6 +133,11 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
   margin-right: 20px;
 }
 
+#fullscreen-bar #fullscreen-buttons #job_pause_clone:hover,
+#fullscreen-bar #fullscreen-buttons #fullscreen-toggle:hover {
+  background-size: 1px calc(100% + 15px);
+}
+
 #fullscreen-buttons .user-buttons {
   display: flex;
   justify-content: flex-end;

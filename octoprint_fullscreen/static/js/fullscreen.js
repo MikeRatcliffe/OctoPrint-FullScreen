@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const pauseBtn = document.querySelector("#job_pause_clone");
 
-      // Font size
+      // Info box font size
       bar.style.fontSize = this.settings.font_size();
       fullscreenToggleBtn.style.fontSize = this.settings.font_size();
       pauseBtn.style.fontSize = this.settings.font_size();
@@ -212,9 +212,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       bar.classList.add(this.settings.position());
 
-      // Colors
+      // Info box colors
       bar.style.color = this.settings.color_fg();
       bar.style.backgroundColor = this.settings.color_bg();
+
+      // Info box buttons
+      const buttonColorFg = this.settings.button_color_fg();
+      const buttonColorBgTop = this.settings.button_color_bg_top();
+      const buttonColorBgBottom = this.settings.button_color_bg_bottom();
+      const buttonGradient = `linear-gradient(to bottom,${buttonColorBgTop},${buttonColorBgBottom})`;
+      for (const button of [fullscreenToggleBtn, pauseBtn]) {
+        button.style.color = buttonColorFg;
+        button.style.backgroundImage = buttonGradient;
+      }
 
       if (this.settings.has_border()) {
         bar.style.borderWidth = "1px";
@@ -226,8 +236,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // TODO:
-      // Button colors
+      // Button background gradient "linear-gradient(to bottom,#fff,#e6e6e6)"
+      // Button foreground color
+      // Font
+      // Progress bar thickness
       // Bar or box
+      // Reset Settings button
     };
 
     /**

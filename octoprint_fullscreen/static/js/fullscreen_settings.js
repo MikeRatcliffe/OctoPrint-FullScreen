@@ -42,6 +42,27 @@ document.addEventListener("DOMContentLoaded", () => {
           saveColorFunc: this.settings.color_border,
           alpha: true,
         },
+        {
+          fieldName: "button_color_fg",
+          swatchId: "#octoprint-fullscreen-button-foreground",
+          textId: "#octoprint-fullscreen-button-foregroundtext",
+          saveColorFunc: this.settings.button_color_fg,
+          alpha: false,
+        },
+        {
+          fieldName: "button_color_bg_top",
+          swatchId: "#octoprint-fullscreen-button-background-top",
+          textId: "#octoprint-fullscreen-button-background-toptext",
+          saveColorFunc: this.settings.button_color_bg_top,
+          alpha: false,
+        },
+        {
+          fieldName: "button_color_bg_bottom",
+          swatchId: "#octoprint-fullscreen-button-background-bottom",
+          textId: "#octoprint-fullscreen-button-background-bottomtext",
+          saveColorFunc: this.settings.button_color_bg_bottom,
+          alpha: false,
+        },
       ]) {
         const picker = document.querySelector(swatchId);
         const pickerText = document.querySelector(textId);
