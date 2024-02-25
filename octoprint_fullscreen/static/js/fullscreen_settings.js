@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const picker = document.querySelector(swatchId);
         const pickerText = document.querySelector(textId);
 
-        // eslint-disable-next-line no-undef
         const colorPicker = new octoprintFullscreenVanillaPicker({
           fieldName,
           parent: picker,
