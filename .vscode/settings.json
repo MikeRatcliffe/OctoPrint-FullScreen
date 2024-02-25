@@ -18,5 +18,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.stylelint": "explicit"
   },
+  "eslint.experimental.useFlatConfig": true,
   "rewrap.autoWrap.enabled": true
 }
