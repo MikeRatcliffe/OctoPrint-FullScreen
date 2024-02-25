@@ -366,7 +366,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.exitFullscreen();
       } else {
         element.requestFullscreen().catch((error) => {
-          const message = `Error attempting to enable fullscreen mode: ${error.message} (${error.name})`;
+          const { msg, name } = error;
+          const message = `Error attempting to enable fullscreen mode: ${msg} (${name})`;
           alert(message);
         });
       }

@@ -164,9 +164,8 @@ const octoprintFullscreenVanillaPicker = (function () {
       const that = this;
       function parseString(input) {
         if (input.startsWith("hsl")) {
-          // HSL string. Examples:
-          //  hsl(120, 60%,  50%) or
-          //  hsla(240, 100%, 50%, .7)
+          // HSL string. Examples: hsl(120, 60%,  50%) or
+          // hsla(240, 100%, 50%, .7)
 
           let [h, s, l, a] = input.match(/([-\d.e]+)/g).map(Number);
           if (a === undefined) {
@@ -178,9 +177,7 @@ const octoprintFullscreenVanillaPicker = (function () {
           l /= 100;
           that.hsla = [h, s, l, a];
         } else if (input.startsWith("rgb")) {
-          // RGB string. Examples:
-          //  rgb(51, 170, 51)
-          //  rgba(51, 170, 51, .7)
+          // RGB string. Examples: rgb(51, 170, 51) rgba(51, 170, 51, .7)
 
           const [r, g, b, a] = input.match(/([-\d.e]+)/g).map(Number);
 
@@ -315,7 +312,7 @@ const octoprintFullscreenVanillaPicker = (function () {
       // Normalize all hex codes (3/4/6/8 digits) to 8 digits RGBA
       const hex = (input.startsWith("#") ? input.slice(1) : input)
         .replace(/^(\w{3})$/, "$1F") // 987      -> 987F
-        .replace(/^(\w)(\w)(\w)(\w)$/, "$1$1$2$2$3$3$4$4") // 9876     -> 99887766
+        .replace(/^(\w)(\w)(\w)(\w)$/, "$1$1$2$2$3$3$4$4") // 9876 -> 99887766
         .replace(/^(\w{6})$/, "$1FF"); // 987654   -> 987654FF
 
       if (!hex.match(/^([0-9a-fA-F]{8})$/)) {
@@ -344,10 +341,9 @@ const octoprintFullscreenVanillaPicker = (function () {
     /**
      * https://gist.github.com/mjackson/5311256
      *
-     * Converts an RGB color value to HSL. Conversion formula
-     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
-     * Assumes r, g, and b are contained in the set [0, 255] and
-     * returns h, s, and l in the set [0, 1].
+     * Converts an RGB color value to HSL. Conversion formula adapted from
+     * http://en.wikipedia.org/wiki/HSL_color_space. Assumes r, g, and b are
+     * contained in the set [0, 255] and returns h, s, and l in the set [0, 1].
      */
     static rgbToHsl([r, g, b, a]) {
       r /= 255;
@@ -386,10 +382,9 @@ const octoprintFullscreenVanillaPicker = (function () {
     /**
      * https://gist.github.com/mjackson/5311256
      *
-     * Converts an HSL color value to RGB. Conversion formula
-     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
-     * Assumes h, s, and l are contained in the set [0, 1] and
-     * returns r, g, and b in the set [0, 255].
+     * Converts an HSL color value to RGB. Conversion formula adapted from
+     * http://en.wikipedia.org/wiki/HSL_color_space. Assumes h, s, and l are
+     * contained in the set [0, 1] and returns r, g, and b in the set [0, 255].
      */
     static hslToRgb([h, s, l, a]) {
       let r;
@@ -533,11 +528,12 @@ const octoprintFullscreenVanillaPicker = (function () {
       }
     }
 
-    // Notice how we must listen on the whole window to really keep track of mouse movements,
-    // while touch movements "stick" to the original target from `touchstart` (which works well for our purposes here):
+    // Notice how we must listen on the whole window to really keep track of
+    // mouse movements, while touch movements "stick" to the original target
+    // from `touchstart` (which works well for our purposes here):
     //
-    //  https://stackoverflow.com/a/51750458/1869660
-    //  "Mouse moves = *hover* like behavior. Touch moves = *drags* like behavior"
+    //  https://stackoverflow.com/a/51750458/1869660 "Mouse moves = *hover* like
+    //  behavior. Touch moves = *drags* like behavior"
     //
     eventBucket.add(area, "mousedown", function (e) {
       onMouse(e, true);
@@ -561,7 +557,8 @@ const octoprintFullscreenVanillaPicker = (function () {
   // https://stackoverflow.com/a/51117224/1869660
   const BG_TRANSP = `linear-gradient(45deg, lightgrey 25%, transparent 25%, transparent 75%, lightgrey 75%) 0 0 / 2em 2em, linear-gradient(45deg, lightgrey 25%, white 25%, white 75%, lightgrey 75%) 1em 1em / 2em 2em`;
   const HUES = 360;
-  // We need to use keydown instead of keypress to handle Esc from the editor textbox:
+  // We need to use keydown instead of keypress to handle Esc from the editor
+  // textbox:
   const EVENT_KEY = "keydown"; // 'keypress'
   const EVENT_CLICK_OUTSIDE = "mousedown";
   const EVENT_TAB_MOVE = "focusin";
@@ -589,13 +586,21 @@ const octoprintFullscreenVanillaPicker = (function () {
      *
      * @callback Picker~colorCallback
      * @param {Object} color
-     * @param {number[]} color.rgba       - RGBA color components.
-     * @param {number[]} color.hsla       - HSLA color components (all values between 0 and 1, inclusive).
-     * @param {string}   color.rgbString  - RGB CSS value (e.g. `rgb(255,215,0)`).
-     * @param {string}   color.rgbaString - RGBA CSS value (e.g. `rgba(255,215,0, .5)`).
-     * @param {string}   color.hslString  - HSL CSS value (e.g. `hsl(50.6,100%,50%)`).
-     * @param {string}   color.hslaString - HSLA CSS value (e.g. `hsla(50.6,100%,50%, .5)`).
-     * @param {string}   color.hex        - 8 digit #RRGGBBAA (not supported in all browsers).
+     * @param {number[]} color.rgba
+     *        RGBA color components.
+     * @param {number[]} color.hsla
+     *        HSLA color components (all values between 0 and 1,
+     *        inclusive).
+     * @param {string} color.rgbString
+     *        RGB CSS value (e.g. `rgb(255,215,0)`).
+     * @param {string} color.rgbaString
+     *        RGBA CSS value (e.g. `rgba(255,215,0, .5)`).
+     * @param {string} color.hslString
+     *        HSL CSS value (e.g. `hsl(50.6,100%,50%)`).
+     * @param {string} color.hslaString
+     *        HSLA CSS value (e.g. `hsla(50.6,100%,50%, .5)`).
+     * @param {string} color.hex
+     *        8 digit #RRGGBBAA (not supported in all browsers).
      */
 
     /**
@@ -621,8 +626,8 @@ const octoprintFullscreenVanillaPicker = (function () {
     constructor(options) {
       // Default settings
       this.settings = {
-        // Allow creating a popup without putting it on screen yet.
-        //  parent: document.body,
+        // Allow creating a popup without putting it on screen yet. parent:
+        //  document.body,
         popup: "right",
         layout: "default",
         alpha: true,
@@ -661,22 +666,37 @@ const octoprintFullscreenVanillaPicker = (function () {
     /**
      * Set the picker options.
      *
-     * @param {Object}       options
-     * @param {HTMLElement}  options.parent           - Which element the picker should be attached to.
-     * @param {('top'|'bottom'|'left'|'right'|false)}
-     *                       [options.popup=right]    - If the picker is used as a popup, where to place it relative to the parent. `false` to add the picker as a normal child element of the parent.
-     * @param {string}       [options.template]       - Custom HTML string from which to build the picker.
-     * @param {string}       [options.layout=default] - Suffix of a custom "layout_..." CSS class to handle the overall arrangement of the picker elements.
-     * @param {boolean}      [options.alpha=true]     - Whether to enable adjusting the alpha channel.
-     * @param {boolean}      [options.editor=true]    - Whether to show a text field for color value editing.
-     * @param {('hex'|'hsl'|'rgb')}
-     *                       [options.editorFormat=hex] - How to display the selected color in the text field (the text field still supports *input* in any format).
-     * @param {boolean}      [options.cancelButton=false] - Whether to have a "Cancel" button which closes the popup.
-     * @param {string}       [options.color]          - Initial color for the picker.
-     * @param {function}     [options.onChange]       - @see {@linkcode Picker#onChange|onChange}
-     * @param {function}     [options.onDone]         - @see {@linkcode Picker#onDone|onDone}
-     * @param {function}     [options.onOpen]         - @see {@linkcode Picker#onOpen|onOpen}
-     * @param {function}     [options.onClose]        - @see {@linkcode Picker#onClose|onClose}
+     * @param {Object} options
+     * @param {HTMLElement} options.parent
+     *        Which element the picker should be attached to.
+     * @param {('top'|'bottom'|'left'|'right'|false)} [options.popup=right]
+     *        If the picker is used as a popup, where to place it relative to
+     *        the parent. `false` to add the picker as a normal child element of
+     *        the parent.
+     * @param {string} [options.template]
+     *        Custom HTML string from which to build the picker.
+     * @param {string} [options.layout=default]
+     *        Suffix of a custom "layout_..." CSS class to handle the overall
+     *        arrangement of the picker elements.
+     * @param {boolean} [options.alpha=true]
+     *        Whether to enable adjusting the alpha channel.
+     * @param {boolean} [options.editor=true]
+     *        Whether to show a text field for color value editing.
+     * @param {('hex'|'hsl'|'rgb')} [options.editorFormat=hex]
+     *        How to display the selected color in the text field (the text
+     *        field still supports *input* in any format).
+     * @param {boolean} [options.cancelButton=false]
+     *        Whether to have a "Cancel" button which closes the popup.
+     * @param {string} [options.color]
+     *        Initial color for the picker.
+     * @param {function} [options.onChange]
+     *        @see {@linkcode Picker#onChange|onChange}
+     * @param {function} [options.onDone]
+     *        @see {@linkcode Picker#onDone|onDone}
+     * @param {function} [options.onOpen]
+     *        @see {@linkcode Picker#onOpen|onOpen}
+     * @param {function} [options.onClose]
+     *        @see {@linkcode Picker#onClose|onClose}
      */
     setOptions(options) {
       if (!options) {
@@ -703,14 +723,14 @@ const octoprintFullscreenVanillaPicker = (function () {
           options.parent &&
           settings.parent !== options.parent
         ) {
-          this._events.remove(settings.parent); // .removeEventListener('click', this._openProxy, false);
+          this._events.remove(settings.parent);
           this._popupInited = false;
         }
 
-        transfer(options, settings /* , skipKeys*/);
+        transfer(options, settings);
 
-        // Event callbacks. Hook these up before setColor() below,
-        // because we'll need to fire onChange() if there is a color in the options
+        // Event callbacks. Hook these up before setColor() below, because we'll
+        // need to fire onChange() if there is a color in the options.
         if (options.onChange) {
           this.onChange = options.onChange;
         }
@@ -724,7 +744,8 @@ const octoprintFullscreenVanillaPicker = (function () {
           this.onClose = options.onClose;
         }
 
-        // Note: Look for color in 'options', as a color value in 'settings' may be an old one we don't want to revert to.
+        // Note: Look for color in 'options', as a color value in 'settings' may
+        // be an old one we don't want to revert to.
         const col = options.color || options.colour;
         if (col) {
           this._setColor(col);
@@ -739,21 +760,14 @@ const octoprintFullscreenVanillaPicker = (function () {
 
         this._events.add(parent, "click", openProxy);
 
-        // Keyboard navigation: Open on [Space] or [Enter] (but stop the event to avoid typing a " " in the editor textbox).
-        // No, don't stop the event, as that would disable normal input behavior (typing a " " or clicking the Ok button with [Enter]).
-        // Fix: setTimeout() in openHandler()..
+        // Keyboard navigation: Open on [Space] or [Enter] (but stop the event
+        // to avoid typing a " " in the editor textbox). No, don't stop the
+        // event, as that would disable normal input behavior (typing a " " or
+        // clicking the Ok button with [Enter]). Fix: setTimeout() in
+        // openHandler().
         //
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values#Whitespace_keys
-        onKey(
-          this._events,
-          parent,
-          [" ", "Spacebar", "Enter"],
-          openProxy /* , true*/
-        );
-
-        // This must wait until we have created our DOM..
-        //  addEvent(window, 'mousedown', (e) => this.closeHandler(e));
-        //  addEvent(this._domOkay, 'click', (e) => this.closeHandler(e));
+        onKey(this._events, parent, [" ", "Spacebar", "Enter"], openProxy);
 
         this._popupInited = true;
       } else if (options.parent && !settings.popup) {
@@ -769,11 +783,15 @@ const octoprintFullscreenVanillaPicker = (function () {
         // If the parent is an <a href="#"> element, avoid scrolling to the top:
         e && e.preventDefault();
 
-        // A trick to avoid re-opening the dialog if you click the parent element while the dialog is open:
+        // A trick to avoid re-opening the dialog if you click the parent
+        // element while the dialog is open:
         this.settings.parent.style.pointerEvents = "none";
 
-        // Recommended popup behavior with keyboard navigation from http://whatsock.com/tsg/Coding%20Arena/Popups/Popup%20(Internal%20Content)/demo.htm
-        // Wait a little before focusing the textbox, in case the dialog was just opened with [Space] (would overwrite the color value with a " "):
+        // Recommended popup behavior with keyboard navigation from
+        // http://whatsock.com/tsg/Coding%20Arena/Popups/Popup%20(Internal%20Content)/demo.htm
+        // Wait a little before focusing the textbox, in case the dialog was
+        // just opened with [Space] (would overwrite the color value with a
+        // " "):
         const toFocus =
           e && e.type === EVENT_KEY ? this._domEdit : this.domElement;
         setTimeout(() => toFocus.focus(), 100);
@@ -795,18 +813,20 @@ const octoprintFullscreenVanillaPicker = (function () {
       if (!e) {
         doHide = true;
       } else if (event === EVENT_CLICK_OUTSIDE || event === EVENT_TAB_MOVE) {
-        // Close by clicking/tabbing outside the popup:
-        // See comments in `_bindEvents()`.
-        // Undesirable behavior in Firefox though: When clicking (mousedown) the [Ok] button or the textbox,
-        // a `focusout` is raised on `picker_wrapper`, followed by a `focusin` on the parent (if it is focusable).
-        // To keep that new event from closing the popup, we add 100ms to our time control:
+        // Close by clicking/tabbing outside the popup: See comments in
+        // `_bindEvents()`. Undesirable behavior in Firefox though: When
+        // clicking (mousedown) the [Ok] button or the textbox, a `focusout` is
+        // raised on `picker_wrapper`, followed by a `focusin` on the parent (if
+        // it is focusable). To keep that new event from closing the popup, we
+        // add 100ms to our time control:
         const knownTime = (this.__containedEvent || 0) + 100;
         if (e.timeStamp > knownTime) {
           doHide = true;
         }
       } else {
-        // Close by mouse/touch or key events:
-        // Don't bubble [Ok] clicks or [Enter] keys up to the parent, because that's the trigger to re-open the popup.
+        // Close by mouse/touch or key events: Don't bubble [Ok] clicks or
+        // [Enter] keys up to the parent, because that's the trigger to re-open
+        // the popup.
         stopEvent(e);
 
         doHide = true;
@@ -815,7 +835,8 @@ const octoprintFullscreenVanillaPicker = (function () {
       if (doHide && this.hide()) {
         this.settings.parent.style.pointerEvents = "";
 
-        // Recommended popup behavior from http://whatsock.com/tsg/Coding%20Arena/Popups/Popup%20(Internal%20Content)/demo.htm
+        // Recommended popup behavior from
+        // http://whatsock.com/tsg/Coding%20Arena/Popups/Popup%20(Internal%20Content)/demo.htm
         // However, we don't re-focus the parent if the user closes the popup by
         // clicking somewhere else on the screen, because they may have scrolled
         // to a different part of the page by then, and focusing would then
@@ -834,7 +855,9 @@ const octoprintFullscreenVanillaPicker = (function () {
      * Move the popup to a different parent, optionally opening it at the same
      * time.
      *
-     * @param {Object}  options - @see {@linkcode Picker#setOptions|setOptions()} (Usually a new `.parent` and `.color`).
+     * @param {Object}  options - @see
+     * {@linkcode Picker#setOptions|setOptions()} (Usually a new `.parent` and
+     * `.color`).
      * @param {boolean} open    - Whether to open the popup immediately.
      */
     movePopup(options, open) {
@@ -851,7 +874,8 @@ const octoprintFullscreenVanillaPicker = (function () {
     /**
      * Set/initialize the picker's color.
      *
-     * @param {string}  color  - Color name, RGBA/HSLA/HEX string, or RGBA array.
+     * @param {string}  color  - Color name, RGBA/HSLA/HEX string, or RGBA
+     * array.
      * @param {boolean} silent - If true, won't trigger onChange.
      */
     setColor(color, silent) {
@@ -1000,21 +1024,20 @@ const octoprintFullscreenVanillaPicker = (function () {
 
       /* Direct color value editing */
 
-      // Always init the editor, for accessibility and screen readers (we'll hide it with CSS if `!settings.editor`)
+      // Always init the editor, for accessibility and screen readers (we'll
+      // hide it with CSS if `!settings.editor`)
       const editInput = this._domEdit;
-      /* if(this.settings.editor)*/ {
-        addEvent(editInput, "input", function () {
-          that._setColor(this.value, { fromEditor: true, failSilently: true });
-        });
-        // Select all text on focus:
-        addEvent(editInput, "focus", function () {
-          const input = this;
-          // If no current selection:
-          if (input.selectionStart === input.selectionEnd) {
-            input.select();
-          }
-        });
-      }
+      addEvent(editInput, "input", function () {
+        that._setColor(this.value, { fromEditor: true, failSilently: true });
+      });
+      // Select all text on focus:
+      addEvent(editInput, "focus", function () {
+        const input = this;
+        // If no current selection:
+        if (input.selectionStart === input.selectionEnd) {
+          input.select();
+        }
+      });
 
       /* Close the dialog */
 
@@ -1027,22 +1050,32 @@ const octoprintFullscreenVanillaPicker = (function () {
         addEvent(window, EVENT_TAB_MOVE, popupCloseProxy);
         onKey(events, dom, ["Esc", "Escape"], popupCloseProxy);
 
-        // Above, we added events on `window` to close the popup if the user clicks outside or tabs away from the picker.
-        // Now, we must make sure that clicks and tabs within the picker don't cause the popup to close.
-        // Things we have tried:
-        //  * Check `e.target` in `closeHandler()` and see if it's a child element of the picker.
-        //      - That won't work if used in a shadow DOM, where the original `target` isn't available once the event reaches `window` (issue #15).
-        //  * Stop the events from propagating past the popup element (using `e.stopPropagation()`).
-        //      - ..but stopping mouse events interferes with text selection in the editor.
+        // Above, we added events on `window` to close the popup if the user
+        // clicks outside or tabs away from the picker. Now, we must make sure
+        // that clicks and tabs within the picker don't cause the popup to
+        // close. Things we have tried:
+        //  * Check `e.target` in `closeHandler()` and see if it's a child
+        //    element of the picker.
+        //      - That won't work if used in a shadow DOM, where the original
+        //        `target` isn't available once the event reaches `window`
+        //        (issue #15).
+        //  * Stop the events from propagating past the popup element (using
+        //    `e.stopPropagation()`).
+        //      - ..but stopping mouse events interferes with text selection in
+        //        the editor.
         //
-        // So, next attempt: Note the `timeStamp` of the contained event, and check it in `closeHandler()`.
-        // That should be a unique identifier of the event, and the time seems to be preserved when retargeting shadow DOM events:
+        // So, next attempt: Note the `timeStamp` of the contained event, and
+        // check it in `closeHandler()`. That should be a unique identifier of
+        // the event, and the time seems to be preserved when retargeting shadow
+        // DOM events:
         const timeKeeper = (e) => {
           this.__containedEvent = e.timeStamp;
         };
         addEvent(dom, EVENT_CLICK_OUTSIDE, timeKeeper);
-        // Note: Now that we have added the 'focusin' event, this trick requires the picker wrapper to be focusable (via `tabindex` - see /src/picker.pug),
-        // or else the popup loses focus if you click anywhere on the picker's background.
+        // Note: Now that we have added the 'focusin' event, this trick requires
+        // the picker wrapper to be focusable (via `tabindex` - see
+        // /src/picker.pug), or else the popup loses focus if you click anywhere
+        // on the picker's background.
         addEvent(dom, EVENT_TAB_MOVE, timeKeeper);
 
         // Cancel button:
@@ -1083,7 +1116,8 @@ const octoprintFullscreenVanillaPicker = (function () {
 
         ["popup_top", "popup_bottom", "popup_left", "popup_right"].forEach(
           (c) => {
-            // Because IE doesn't support .classList.toggle()'s second argument...
+            // Because IE doesn't support .classList.toggle()'s second
+            // argument...
             if (c === cssClass) {
               elm.classList.add(c);
             } else {
@@ -1142,10 +1176,10 @@ const octoprintFullscreenVanillaPicker = (function () {
       const thumbA = uiA.querySelector(".picker_selector");
 
       function posX(parent, child, relX) {
-        child.style.left = relX * 100 + "%"; // (parent.clientWidth * relX) + 'px';
+        child.style.left = relX * 100 + "%";
       }
       function posY(parent, child, relY) {
-        child.style.top = relY * 100 + "%"; // (parent.clientHeight * relY) + 'px';
+        child.style.top = relY * 100 + "%";
       }
 
       /* Hue */
@@ -1176,8 +1210,8 @@ const octoprintFullscreenVanillaPicker = (function () {
 
       /* Editable value */
 
-      // Don't update the editor if the user is typing.
-      // That creates too much noise because of our auto-expansion of 3/4/6 -> 8 digit hex codes.
+      // Don't update the editor if the user is typing. That creates too much
+      // noise because of our auto-expansion of 3/4/6 -> 8 digit hex codes.
       if (!flags.fromEditor) {
         const format = this.settings.editorFormat;
         const alpha = this.settings.alpha;
