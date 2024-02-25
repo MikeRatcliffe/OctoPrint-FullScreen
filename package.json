@@ -1,0 +1,31 @@
+{
+  "name": "octoprint_fullscreen",
+  "description": "",
+  "version": "0.0.6",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:MikeRatcliffe/OctoPrint-FullScreen.git"
+  },
+  "keywords": [],
+  "author": "Mike Ratcliffe",
+  "license": "AGPLv3",
+  "bugs": {
+    "url": "https://github.com/MikeRatcliffe/OctoPrint-FullScreen/issues"
+  },
+  "homepage": "https://github.com/MikeRatcliffe/OctoPrint-FullScreen",
+  "devDependencies": {
+    "@eslint/js": "^8.57.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jsdoc": "^48.2.0",
+    "eslint-plugin-jsonc": "^2.13.0",
+    "globals": "^14.0.0",
+    "prettier": "3.2.5",
+    "stylelint": "^16.2.1"
+  }
+}
