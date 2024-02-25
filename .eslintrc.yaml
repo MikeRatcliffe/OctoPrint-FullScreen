@@ -10,6 +10,7 @@ globals:
     getDir: readonly
     hash_alg: readonly
     ko: readonly
+    octoprintFullscreenVanillaPicker: readonly
     platform: readonly
     shell: readonly
     version: readonly
@@ -32,3 +33,6 @@ rules:
         - smart
     no-var:
         - error
+    spaced-comment:
+        - error
+        - always
