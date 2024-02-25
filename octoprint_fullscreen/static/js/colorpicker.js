@@ -910,6 +910,11 @@ const octoprintFullscreenVanillaPicker = (function () {
       this._setHSLA(null, null, null, null, flags);
     }
     /**
+     * Sets the picker's color.
+     *
+     * @param {string}  colour - Color name, RGBA/HSLA/HEX string, or RGBA
+     * array.
+     * @param {boolean} silent - If true, won't trigger onChange.
      * @see {@linkcode Picker#setColor|setColor()}
      */
     setColour(colour, silent) {
