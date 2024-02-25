@@ -218,3 +218,8 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
   float: right;
   margin-right: 20px;
 }
+
+#octoprint-fullscreen-border {
+	transform-origin: 0;
+	transform: scale(2);
+}

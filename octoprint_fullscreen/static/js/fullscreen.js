@@ -226,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.style.backgroundImage = buttonGradient;
       }
 
+      // Info box border
       if (this.settings.has_border()) {
         bar.style.borderWidth = "1px";
         bar.style.borderStyle = "solid";
