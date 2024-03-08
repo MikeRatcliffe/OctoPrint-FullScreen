@@ -650,6 +650,10 @@ const octoprintFullscreenVanillaPicker = (function () {
        */
       this.onDone = null;
       /**
+       * Callback before the popup opens.
+       */
+      this.onBeforeOpen = null;
+      /**
        * Callback when the popup opens.
        * @member {Picker~colorCallback}
        */
@@ -693,6 +697,8 @@ const octoprintFullscreenVanillaPicker = (function () {
      *        @see {@linkcode Picker#onChange|onChange}
      * @param {function} [options.onDone]
      *        @see {@linkcode Picker#onDone|onDone}
+     * @param {function} [options.onBeforeOpen]
+     *        @see {@linkcode Picker#onBeforeOpen|onBeforeOpen}
      * @param {function} [options.onOpen]
      *        @see {@linkcode Picker#onOpen|onOpen}
      * @param {function} [options.onClose]
@@ -740,6 +746,9 @@ const octoprintFullscreenVanillaPicker = (function () {
         if (options.onOpen) {
           this.onOpen = options.onOpen;
         }
+        if (options.onBeforeOpen) {
+          this.onBeforeOpen = options.onBeforeOpen;
+        }
         if (options.onClose) {
           this.onClose = options.onClose;
         }
@@ -779,6 +788,10 @@ const octoprintFullscreenVanillaPicker = (function () {
      * Default behavior for opening the popup
      */
     openHandler(e) {
+      if (this.onBeforeOpen) {
+        this.onBeforeOpen();
+      }
+
       if (this.show()) {
         // If the parent is an <a href="#"> element, avoid scrolling to the top:
         e && e.preventDefault();
@@ -1049,7 +1062,9 @@ const octoprintFullscreenVanillaPicker = (function () {
       // onClose:
       this._ifPopup(() => {
         // Keep closeHandler() pluggable, but call it in the right context:
-        const popupCloseProxy = (e) => this.closeHandler(e);
+        const popupCloseProxy = (e) => {
+          return this.closeHandler(e);
+        };
 
         addEvent(window, EVENT_CLICK_OUTSIDE, popupCloseProxy);
         addEvent(window, EVENT_TAB_MOVE, popupCloseProxy);
