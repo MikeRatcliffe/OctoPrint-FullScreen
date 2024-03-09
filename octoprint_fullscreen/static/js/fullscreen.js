@@ -201,8 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const pauseBtn = document.querySelector("#job_pause_clone");
 
-      // Info box font size
+      // Info box font
       bar.style.fontSize = this.settings.font_size();
+      bar.style.fontFamily = this.settings.font_family();
       fullscreenToggleBtn.style.fontSize = this.settings.font_size();
       pauseBtn.style.fontSize = this.settings.font_size();
 
@@ -235,14 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
         bar.style.borderWidth = "0px";
         bar.style.borderStyle = "none";
       }
-
-      // TODO:
-      // Button background gradient "linear-gradient(to bottom,#fff,#e6e6e6)"
-      // Button foreground color
-      // Font
-      // Progress bar thickness
-      // Bar or box
-      // Reset Settings button
     };
 
     /**

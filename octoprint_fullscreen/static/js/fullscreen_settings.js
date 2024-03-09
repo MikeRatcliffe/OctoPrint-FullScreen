@@ -2,10 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function OctoprintFullscreenSettingsViewModel([
     settingsView,
     octoprintFullscreenView,
+    OctoprintFullscreenDropdownView,
   ]) {
     this.settingsView = settingsView;
     this.octoprintFullscreenView = octoprintFullscreenView;
+    this.octoprintFullscreenDropdownView = OctoprintFullscreenDropdownView;
     this.colorPickers = new Map();
+    this.dropdowns = [];
 
     // We will populate settings in onStartupComplete().
     this.settings = null;
@@ -20,12 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
       resetButton.addEventListener("click", this.onResetClick);
 
       this.initSwatches();
+      this.initFontDropdown();
     };
 
     this.onResetClick = () => {
       // If you change these default values be sure to also change the
       // corresponding values in __init__.py
       this.settings.font_size("14px");
+      this.settings.font_family("sans-serif");
       this.settings.position("bottomright");
       this.settings.button_color_fg("rgba(51, 51, 51, 1)");
       this.settings.button_color_bg_top("rgba(255, 255, 255, 1)");
@@ -34,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       this.settings.color_bg("rgba(0, 0, 0, 0.25)");
       this.settings.color_border("rgba(68, 68, 68, 1)");
       this.settings.has_border(true);
+
+      for (const dropdown of this.dropdowns) {
+        const setting = dropdown.settings.setting();
+        dropdown.setValue(setting);
+      }
 
       this.refreshColorPickers();
       this.octoprintFullscreenView.updateStyles();
@@ -101,6 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
           alpha,
         });
 
+        colorPicker.onBeforeOpen = () => {
+          // Hide all color pickers
+          for (const [, colorPicker] of this.colorPickers) {
+            colorPicker.closeHandler();
+          }
+        };
+
         /**
          * Populate swatch and swatch text
          */
@@ -117,11 +134,18 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add custom "onClose" functionality:
         colorPicker._closeHandler = colorPicker.closeHandler;
         colorPicker.closeHandler = function (e) {
+          if (!e) {
+            this._closeHandler();
+            return;
+          }
+
           // Inside this handler `this` is in the context of the swatch
           if (
             e.target.dataset.testId === "settings-save" ||
             e.type === "focusin" ||
-            (e.type === "mousedown" && e.target !== this._domOkay)
+            (e.type === "mousedown" &&
+              e.target !== this._domOkay &&
+              this.domElement.contains(e.target))
           ) {
             return;
           }
@@ -132,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (e.target === this._domOkay) {
             // Apply color to swatch
             this.updateSwatch();
-          } else {
+          } else if (e.target === this._domCancel) {
             // Go back to original color
             refreshColorPickers();
           }
@@ -162,6 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
      * Update settings when they are saved.
      */
     this.onSettingsBeforeSave = () => {
+      // Save values of all dropdowns to settings
+      for (const dropdown of this.dropdowns) {
+        dropdown.settings.setting(dropdown.getValue());
+      }
+
       // Save color picker values to settings
       for (const [name, colorPicker] of this.colorPickers) {
         this.settings[name](colorPicker.color.rgbaString);
@@ -173,12 +202,51 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     this.onSettingsHidden = () => {
       this.refreshColorPickers();
+
+      for (const dropdown of this.dropdowns) {
+        const setting = dropdown.settings.setting();
+        dropdown.setValue(setting);
+      }
+    };
+
+    this.initFontDropdown = () => {
+      const options = [
+        "serif",
+        "sans-serif",
+        "monospace",
+        "cursive",
+        "fantasy",
+        "system-ui",
+        "ui-serif",
+        "ui-sans-serif",
+        "ui-monospace",
+        "ui-rounded",
+        "fangsong",
+      ].map((text) => {
+        return {
+          text,
+          value: text,
+          className: text,
+        };
+      });
+
+      const dropdown = this.octoprintFullscreenDropdownView.createDropdown({
+        selector: "#octoprint-fullscreen-font-select",
+        action: "applyClass",
+        setting: this.settings.font_family,
+        options,
+      });
+      this.dropdowns.push(dropdown);
     };
   }
 
   OCTOPRINT_VIEWMODELS.push({
     construct: OctoprintFullscreenSettingsViewModel,
-    dependencies: ["settingsViewModel", "fullscreenViewModel"],
+    dependencies: [
+      "settingsViewModel",
+      "fullscreenViewModel",
+      "octoprintFullscreenDropdownViewModel",
+    ],
     elements: [],
   });
 });

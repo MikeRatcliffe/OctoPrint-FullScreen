@@ -11,7 +11,12 @@ class FullscreenPlugin(
 
     def get_assets(self):
         return dict(
-            js=["js/colorpicker.js", "js/fullscreen.js", "js/fullscreen_settings.js"],
+            js=[
+                "js/colorpicker.js",
+                "js/fullscreen.js",
+                "js/fullscreen_dropdown.js",
+                "js/fullscreen_settings.js",
+            ],
             css=["css/colorpicker.css", "css/fullscreen.css"],
             less=[],
         )
@@ -21,6 +26,7 @@ class FullscreenPlugin(
         # corresponding values in fullscreen_settings.py
         return dict(
             installed_version=self._plugin_version,
+            font_family="sans-serif",
             font_size="14px",
             font_sizes=[
                 "10px",
@@ -57,6 +63,7 @@ class FullscreenPlugin(
         return dict(
             installed_version=self._settings.get(["installed_version"]),
             font_size=self._settings.get(["font_size"]),
+            font_family=self._settings.get(["font_family"]),
             font_sizes=self._settings.get(["font_sizes"]),
             position=self._settings.get(["position"]),
             positions=self._settings.get(["positions"]),

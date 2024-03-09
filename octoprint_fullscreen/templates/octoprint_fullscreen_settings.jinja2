@@ -8,9 +8,11 @@
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="settings-fullscreen-info-font_size">{{ _('Font size') }}</label>
+        <label class="control-label" for="settings-fullscreen-info-font_size">{{ _('Font') }}</label>
         <div class="controls">
             <select data-bind="options: settings.plugins.octoprint_fullscreen.font_sizes, value: settings.plugins.octoprint_fullscreen.font_size" id="settings-fullscreen-info-font_size"></select>
+
+            <div id="octoprint-fullscreen-font-select"></div>
         </div>
     </div>
 

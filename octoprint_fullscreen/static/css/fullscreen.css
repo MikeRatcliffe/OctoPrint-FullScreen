@@ -223,3 +223,164 @@ _:-ms-lang(x), _:-webkit-full-screen, .fullscreen img {
 	transform-origin: 0;
 	transform: scale(2);
 }
+
+#settings-fullscreen-info-font_size {
+	width: 5em;
+}
+
+.select-wrapper .serif {
+  font-family: Times, "Times New Roman", Georgia, serif;
+}
+
+.select-wrapper .sans-serif {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.select-wrapper .monospace {
+  font-family: "Lucida Console", Courier, monospace;
+}
+
+.select-wrapper .cursive {
+  font-family: cursive;
+}
+
+.select-wrapper .fantasy {
+  font-family: fantasy;
+}
+
+.select-wrapper .system-ui {
+  font-family: system-ui;
+}
+
+.select-wrapper .ui-serif {
+  font-family: ui-serif;
+}
+
+.select-wrapper .ui-sans-serif {
+  font-family: ui-sans-serif;
+}
+
+.select-wrapper .ui-monospace {
+  font-family: ui-monospace;
+}
+
+.select-wrapper .ui-rounded {
+  font-family: ui-rounded;
+}
+
+.select-wrapper .fangsong {
+  font-family: fangsong;
+}
+
+.select-wrapper {
+  position: relative;
+  user-select: none;
+  width: 220px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.select-wrapper .select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.select-wrapper .select .trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  font-size: 20px;
+  font-weight: 300;
+  color: #3b3b3b;
+  height: 28px;
+  line-height: 60px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.select-wrapper .options {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.select-wrapper .select.open .options {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.select-wrapper .options > span {
+  position: relative;
+  display: block;
+  padding: 0 22px;
+  font-size: 22px;
+  font-weight: 300;
+  color: #3b3b3b;
+  line-height: 30px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.select-wrapper .options > span:hover {
+  cursor: pointer;
+  background-color: #b2b2b2;
+}
+
+.select-wrapper .options > span[selected] {
+  color: #fff;
+  background-color: #305c91;
+}
+
+.select-wrapper .arrow {
+  position: relative;
+  height: 5px;
+  width: 5px;
+}
+
+.select-wrapper .arrow::before,
+.select-wrapper .arrow::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	width: 1px;
+	height: 100%;
+	transition: all 0.5s;
+}
+
+.select-wrapper .arrow::before {
+	left: 17px;
+	transform: rotate(-45deg);
+	background-color: #333;
+}
+
+.select-wrapper .arrow::after {
+	left: 20px;
+	transform: rotate(45deg);
+	background-color: #333;
+}
+
+.select-wrapper .select.open .arrow::before {
+  left: 17px;
+  transform: rotate(45deg);
+}
+
+.select-wrapper .select.open .arrow::after {
+  left: 20px;
+  transform: rotate(-45deg);
+}
