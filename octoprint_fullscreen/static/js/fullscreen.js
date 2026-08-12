@@ -2,7 +2,7 @@
  * View model for OctoPrint-Fullscreen
  *
  * Based on: NavbarTemp credits to Jarek Szczepanski
- * (Other stuff) Author: Paul de Vries
+ * (Other stuff) Author: Mike Ratcliffe, Paul de Vries
  * License: AGPLv3
  */
 let onceOpenInlineFullscreen = false;
