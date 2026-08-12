@@ -1,0 +1,22 @@
+{
+  "name": "octoprint-fullscreen",
+  "version": "0.0.6",
+  "type": "module",
+  "private": false,
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.11.0",
+    "prettier": "^3.9.6",
+    "prettier-eslint": "^17.1.1"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write ."
+  },
+  "eslintConfig": {
+    "$schema": "https://json.schemastore.org/eslintrc.json"
+  }
+}
