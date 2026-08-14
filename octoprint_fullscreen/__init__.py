@@ -8,6 +8,7 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
     def get_settings_defaults(self):
         return {
             "font_size": 25,
+            "foreground_color": "rgba(255, 255, 255, 1)",
             "background_color": "rgba(0, 0, 0, 0.25)",
             "offset_left_maximised": -1,
             "offset_top_maximised": -1,
@@ -19,6 +20,9 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
         return {
             "font_size": self._settings.get(
                 ["font_size"]
+            ),
+            "foreground_color": self._settings.get(
+                ["foreground_color"]
             ),
             "background_color": self._settings.get(
                 ["background_color"]

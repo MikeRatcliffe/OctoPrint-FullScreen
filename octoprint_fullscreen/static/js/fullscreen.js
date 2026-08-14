@@ -151,7 +151,7 @@ $(function () {
     });
 
     self.onAllBound = function () {
-      helpers.createPickr();
+      helpers.createPickrs();
     };
 
     self.onAfterBinding = function () {

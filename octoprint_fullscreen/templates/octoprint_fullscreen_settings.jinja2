@@ -2,10 +2,18 @@
     <h3>Appearance</h3>
 
     <div class="control-group">
-        <label class="control-label">Color & Transparency</label>
+        <label class="control-label">Foreground Color</label>
         <div class="controls">
-            <div id="octoprint_fullscreen_picker"></div>
-            <input type="hidden" id="octoprint_fullscreen_color" data-bind="value: settings.plugins.octoprint_fullscreen.background_color">
+            <div id="octoprint_fullscreen_picker_fg"></div>
+            <input type="hidden" id="octoprint_fullscreen_color_picker_fg" data-bind="value: settings.plugins.octoprint_fullscreen.foreground_color">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Background Color</label>
+        <div class="controls">
+            <div id="octoprint_fullscreen_picker_bg"></div>
+            <input type="hidden" id="octoprint_fullscreen_color_picker_bg" data-bind="value: settings.plugins.octoprint_fullscreen.background_color">
         </div>
     </div>
 

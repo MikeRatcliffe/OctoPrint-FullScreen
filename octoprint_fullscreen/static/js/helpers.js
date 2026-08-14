@@ -58,6 +58,8 @@ class OfsHelpers {
   initSettingsSubscriptions() {
     this.viewModel.fontSize =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.font_size;
+    this.viewModel.foregroundColor =
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color;
     this.viewModel.backgroundColor =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color;
     this.viewModel.offsetLeftMaximised =
@@ -70,6 +72,9 @@ class OfsHelpers {
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_top_fullscreen;
 
     this.viewModel.fontSize.subscribe(() => {
+      this.applyStyles();
+    });
+    this.viewModel.foregroundColor.subscribe(() => {
       this.applyStyles();
     });
     this.viewModel.backgroundColor.subscribe(() => {
@@ -114,8 +119,9 @@ class OfsHelpers {
     offsetLeft = Math.max(offsetLeft, 0);
 
     $view.css({
-      'font-size': `${this.viewModel.fontSize()}px`,
+      'color': this.viewModel.foregroundColor(),
       'background-color': this.viewModel.backgroundColor(),
+      'font-size': `${this.viewModel.fontSize()}px`,
       top: `${offsetTop}px`,
       left: `${offsetLeft}px`,
     });
@@ -253,21 +259,87 @@ class OfsHelpers {
   }
 
   /**
-   * Initialize and configure the Pickr color picker.
-   * Creates a color picker instance with predefined color swatches and binds change/save events
-   * to update the background color setting in the fullscreen bar.
+   * Initialize and configure the Pickr color pickers.
+   * Creates a color picker instance with predefined color swatches and binds
+   * change/save events to update the foreground and background color setting in
+   * the fullscreen bar.
    */
-  createPickr() {
-    const pickerElement = document.querySelector('#octoprint_fullscreen_picker');
-    if (!pickerElement) {
-      console.warn('OfsHelpers: Pickr picker element not found');
+  createPickrs() {
+    this.createPickrFg();
+    this.createPickrBg();
+  }
+
+  /**
+   * Initialise and configure the Pickr color picker for the overlay foreground color.
+   */
+  createPickrFg() {
+    const pickerElementFg = document.querySelector('#octoprint_fullscreen_picker_fg');
+    if (!pickerElementFg) {
+      console.warn('OfsHelpers: Pickr foreground element not found');
       return;
     }
 
     // eslint-disable-next-line no-undef
-    const pickr = ofsPickr.create({
-      el: '#octoprint_fullscreen_picker',
-      id: 'octoprint_fullscreen_pickr',
+    const pickrFg = ofsPickr.create({
+      el: '#octoprint_fullscreen_picker_fg',
+      id: 'octoprint_fullscreen_pickr_instance_fg',
+      theme: 'nano',
+      default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(),
+
+      swatches: [
+        'rgb(244, 67, 54)',
+        'rgb(233, 30, 99)',
+        'rgb(156, 39, 176)',
+        'rgb(103, 58, 183)',
+        'rgb(63, 81, 181)',
+        'rgb(33, 150, 243)',
+        'rgb(3, 169, 244)',
+        'rgb(0, 188, 212)',
+        'rgb(0, 150, 136)',
+        'rgb(76, 175, 80)',
+        'rgb(139, 195, 74)',
+        'rgb(205, 220, 57)',
+        'rgb(255, 235, 59)',
+        'rgb(255, 193, 7)',
+      ],
+
+      components: {
+        preview: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          cmyk: true,
+          input: true,
+          save: true,
+        },
+      },
+    });
+
+    pickrFg.on('change', color => {
+      const rgbaString = color.toRGBA().toString(0);
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(rgbaString);
+    });
+
+    pickrFg.on('save', () => {
+      pickrFg.hide();
+    });
+  }
+
+  /**
+   * Initialise and configure the Pickr color picker for the overlay background color.
+   */
+  createPickrBg() {
+    const pickerElementBg = document.querySelector('#octoprint_fullscreen_picker_bg');
+    if (!pickerElementBg) {
+      console.warn('OfsHelpers: Pickr background element not found');
+      return;
+    }
+
+    // eslint-disable-next-line no-undef
+    const pickrBg = ofsPickr.create({
+      el: '#octoprint_fullscreen_picker_bg',
+      id: 'octoprint_fullscreen_pickr_instance_bg',
       theme: 'nano',
       default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(),
 
@@ -303,13 +375,13 @@ class OfsHelpers {
       },
     });
 
-    pickr.on('change', color => {
+    pickrBg.on('change', color => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(rgbaString);
     });
 
-    pickr.on('save', () => {
-      pickr.hide();
+    pickrBg.on('save', () => {
+      pickrBg.hide();
     });
   }
 
