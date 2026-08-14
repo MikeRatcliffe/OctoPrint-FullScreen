@@ -33,6 +33,14 @@ $(function () {
 
     self.printer.fsp.isFullscreen = ko.observable(false);
     self.printer.fsp.fullscreen = function () {
+      if ($body.hasClass('inlineFullscreen')) {
+        if (self.printer.fsp.isFullscreen()) {
+          helpers.setWindowState(helpers.windowStateEnum.maximised);
+        } else {
+          helpers.setWindowState(helpers.windowStateEnum.fullscreen);
+        }
+      }
+
       $fullscreenContainer.toggleFullScreen();
     };
 
@@ -66,8 +74,10 @@ $(function () {
             $container.toggleClass('inline fullscreen');
 
             if ($body.hasClass('inlineFullscreen')) {
+              helpers.setWindowState(helpers.windowStateEnum.maximised);
               history.pushState('', null, `${window.location.hash}-fullscreen-open`);
             } else {
+              helpers.setWindowState(helpers.windowStateEnum.regular);
               if (window.location.hash.indexOf('-fullscreen-open') !== -1) {
                 history.pushState('', null, window.location.hash.replace('-fullscreen-open', ''));
               }
@@ -77,6 +87,7 @@ $(function () {
               $fullscreenContainer.toggleFullScreen();
             }
 
+            helpers.applyStyles();
             helpers.updateProgressBarPosition();
 
             touchtime = 0;
@@ -105,6 +116,7 @@ $(function () {
       ko.applyBindings(self.printer, $('#fullscreen-bar #fullscreen-progress-bar').get(0));
 
       helpers.initProgressBarPositionUpdater();
+      helpers.makeOverlayDraggable();
     };
 
     self.onBeforeBinding = function () {

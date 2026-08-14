@@ -8,18 +8,22 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 
     def get_settings_defaults(self):
         return dict(
-            font_size=20,
+            font_size=25,
             background_color="rgba(0, 0, 0, 0.25)",
-            offset_bottom=10,
-            offset_right=10,
+            offset_left_maximised=-1,
+            offset_top_maximised=-1,
+            offset_left_fullscreen=-1,
+            offset_top_fullscreen=-1,
         )
 
     def get_template_vars(self):
         return dict(
             font_size=self._settings.get(["font_size"]),
             background_color=self._settings.get(["background_color"]),
-            offset_bottom=self._settings.get(["offset_bottom"]),
-            offset_right=self._settings.get(["offset_right"]),
+            offset_left_maximised=self._settings.get(["offset_left_maximised"]),
+            offset_top_maximised=self._settings.get(["offset_top_maximised"]),
+            offset_left_fullscreen=self._settings.get(["offset_left_fullscreen"]),
+            offset_top_fullscreen=self._settings.get(["offset_top_fullscreen"]),
         )
 
     def get_assets(self):

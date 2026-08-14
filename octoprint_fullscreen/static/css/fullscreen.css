@@ -121,11 +121,13 @@ _:-webkit-full-screen,
   pointer-events: all;
   display: none;
   position: absolute;
-  right: 10px;
-  bottom: 10px;
   font-size: 85%;
   color: #fff;
   padding: 5px 5px 5px 0;
+  left: 0;
+  top: 0;
+  cursor: grab;
+  white-space: nowrap;
 }
 #fullscreen-buttons .user-buttons {
   display: -ms-flexbox;
