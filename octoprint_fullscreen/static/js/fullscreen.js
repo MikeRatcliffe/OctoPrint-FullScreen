@@ -5,13 +5,14 @@
  * (Other stuff) Author: Mike Ratcliffe, Paul de Vries
  * License: AGPLv3
  */
-let onceOpenInlineFullscreen = false;
-if (window.location.hash.indexOf('-fullscreen-open') !== -1) {
-  window.location.hash = window.location.hash.replace('-fullscreen-open', '').substr(1);
-  onceOpenInlineFullscreen = true;
-}
 
 $(function () {
+  let onceOpenInlineFullscreen = false;
+  if (window.location.hash.indexOf('-fullscreen-open') !== -1) {
+    window.location.hash = window.location.hash.replace('-fullscreen-open', '').substr(1);
+    onceOpenInlineFullscreen = true;
+  }
+
   function FullscreenViewModel(parameters) {
     const self = this;
     const helpers = new OfsHelpers(self);
