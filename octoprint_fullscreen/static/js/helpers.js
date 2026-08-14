@@ -124,7 +124,7 @@ class OfsHelpers {
     }
 
     // eslint-disable-next-line no-undef
-    const pickr = Pickr.create({
+    const pickr = ofsPickr.create({
       el: '#octoprint_fullscreen_picker',
       id: 'octoprint_fullscreen_pickr',
       theme: 'nano',
