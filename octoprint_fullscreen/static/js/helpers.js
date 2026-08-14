@@ -7,6 +7,9 @@ class OfsHelpers {
   /** @type {object} Reference to the fullscreen view model */
   viewModel = null;
 
+  /** @type {number} Delay before updating progress bar position after page load */
+  progressBarUpdateDelay = 1500;
+
   /**
    * Creates an instance of OfsHelpers.
    *
@@ -77,7 +80,7 @@ class OfsHelpers {
   initProgressBarPositionUpdater() {
     setTimeout(() => {
       this.updateProgressBarPosition();
-    }, 1500);
+    }, this.progressBarUpdateDelay);
 
     $(window).on('resize', () => {
       this.updateProgressBarPosition();

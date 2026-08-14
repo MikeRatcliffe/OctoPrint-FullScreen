@@ -7,6 +7,9 @@
  */
 
 $(function () {
+  const touchtimeThreshold = 800;
+  const onceOpenInlineFullscreenDelay = 100;
+
   let onceOpenInlineFullscreen = false;
   if (window.location.hash.indexOf('-fullscreen-open') !== -1) {
     window.location.hash = window.location.hash.replace('-fullscreen-open', '').substr(1);
@@ -58,7 +61,7 @@ $(function () {
         if (touchtime === 0) {
           touchtime = new Date().getTime();
         } else {
-          if (new Date().getTime() - touchtime < 800) {
+          if (new Date().getTime() - touchtime < touchtimeThreshold) {
             $body.toggleClass('inlineFullscreen');
             $container.toggleClass('inline fullscreen');
 
@@ -88,7 +91,7 @@ $(function () {
           touchtime = new Date().getTime();
           $webcam.trigger('click');
           onceOpenInlineFullscreen = false;
-        }, 100);
+        }, onceOpenInlineFullscreenDelay);
       }
 
       $info.insertAfter($container);
