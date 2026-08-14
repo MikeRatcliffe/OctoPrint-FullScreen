@@ -20,6 +20,7 @@ $(function () {
 
     self.tempModel = parameters[0];
     self.printer = parameters[1];
+    self.settings = parameters[3];
     self.printer.fsp = {};
 
     self.printer.fsp.printLayerProgress = ko.observable('');
@@ -96,6 +97,38 @@ $(function () {
       ko.applyBindings(self.printer, $('#fullscreen-bar #fullscreen-progress-bar').get(0));
     };
 
+    self.onBeforeBinding = function () {
+      self.fontSize = self.settings.settings.plugins.octoprint_fullscreen.font_size;
+      self.backgroundColor = self.settings.settings.plugins.octoprint_fullscreen.background_color;
+      self.offsetBottom = self.settings.settings.plugins.octoprint_fullscreen.offset_bottom;
+      self.offsetRight = self.settings.settings.plugins.octoprint_fullscreen.offset_right;
+
+      self.fontSize.subscribe(function () {
+        self.applyStyles();
+      });
+      self.backgroundColor.subscribe(function () {
+        self.applyStyles();
+      });
+      self.offsetBottom.subscribe(function () {
+        self.applyStyles();
+      });
+      self.offsetRight.subscribe(function () {
+        self.applyStyles();
+      });
+
+      self.applyStyles();
+    };
+
+    self.applyStyles = function () {
+      const $view = $('#fullscreen-bar');
+      $view.css({
+        'font-size': self.fontSize() + 'px',
+        'background-color': self.backgroundColor(),
+        bottom: self.offsetBottom() + 'px',
+        right: self.offsetRight() + 'px',
+      });
+    };
+
     self.onDataUpdaterPluginMessage = function (plugin, data) {
       if (plugin.indexOf('DisplayLayerProgress') !== -1) {
         if (!self.printer.fsp.hasLayerProgress()) {
@@ -122,11 +155,72 @@ $(function () {
     $(document).bind('fullscreenchange', function () {
       self.printer.fsp.isFullscreen($(document).fullScreen());
     });
+
+    self.onAllBound = function () {
+      // eslint-disable-next-line no-undef
+      const pickr = Pickr.create({
+        el: '#octoprint_fullscreen_picker',
+        id: 'octoprint_fullscreen_pickr',
+        theme: 'nano',
+        default: self.settings.settings.plugins.octoprint_fullscreen.background_color(),
+
+        swatches: [
+          'rgba(244, 67, 54, 1)',
+          'rgba(233, 30, 99, 0.95)',
+          'rgba(156, 39, 176, 0.9)',
+          'rgba(103, 58, 183, 0.85)',
+          'rgba(63, 81, 181, 0.8)',
+          'rgba(33, 150, 243, 0.75)',
+          'rgba(3, 169, 244, 0.7)',
+          'rgba(0, 188, 212, 0.7)',
+          'rgba(0, 150, 136, 0.75)',
+          'rgba(76, 175, 80, 0.8)',
+          'rgba(139, 195, 74, 0.85)',
+          'rgba(205, 220, 57, 0.9)',
+          'rgba(255, 235, 59, 0.95)',
+          'rgba(255, 193, 7, 1)',
+        ],
+
+        components: {
+          // Main components
+          preview: true,
+          opacity: true,
+          hue: true,
+
+          // Input / Output Options
+          interaction: {
+            hex: true,
+            rgba: true,
+            cmyk: true,
+            input: true,
+            save: true,
+          },
+        },
+      });
+
+      pickr.on('change', color => {
+        const rgbaString = color.toRGBA().toString(0);
+        self.settings.settings.plugins.octoprint_fullscreen.background_color(rgbaString);
+      });
+
+      pickr.on('save', () => {
+        pickr.hide();
+      });
+    };
+
+    self.onAfterBinding = function () {
+      self.applyStyles();
+    };
   }
 
   OCTOPRINT_VIEWMODELS.push({
     construct: FullscreenViewModel,
-    dependencies: ['temperatureViewModel', 'printerStateViewModel', 'controlViewModel'],
+    dependencies: [
+      'temperatureViewModel',
+      'printerStateViewModel',
+      'controlViewModel',
+      'settingsViewModel',
+    ],
     optional: [],
     elements: ['#fullscreen-tool-info'],
   });

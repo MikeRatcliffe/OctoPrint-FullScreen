@@ -121,11 +121,11 @@ _:-webkit-full-screen,
   pointer-events: all;
   display: none;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 10px;
+  bottom: 10px;
   font-size: 85%;
   color: #fff;
-  padding: 10px;
+  padding: 5px 5px 5px 0;
 }
 #fullscreen-buttons .user-buttons {
   display: -ms-flexbox;
@@ -152,7 +152,6 @@ _:-webkit-full-screen,
 #fullscreen-bar #fullscreen-tool-info p span,
 #fullscreen-bar #fullscreen-print-info p > span {
   margin: 0;
-  background: rgba(0, 0, 0, 0.25);
   padding: 5px 10px;
   display: inline-block;
   line-height: 20px;
@@ -180,6 +179,7 @@ _:-webkit-full-screen,
   z-index: 9998;
 }
 .inlineFullscreen #fullscreen-bar {
+  border-radius: 10px;
   z-index: 9999;
 }
 .inlineFullscreen #webcam_container {
@@ -196,4 +196,24 @@ _:-webkit-full-screen,
   top: 0;
   left: 0;
   z-index: 99;
+}
+
+#settings_plugin_octoprint_fullscreen .pickr .pcr-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition:
+    border linear 0.2s,
+    box-shadow linear 0.2s;
+  -moz-transition:
+    border linear 0.2s,
+    box-shadow linear 0.2s;
+  -o-transition:
+    border linear 0.2s,
+    box-shadow linear 0.2s;
+  transition:
+    border linear 0.2s,
+    box-shadow linear 0.2s;
 }

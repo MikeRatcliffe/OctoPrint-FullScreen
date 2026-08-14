@@ -1,0 +1,35 @@
+<form class="form-horizontal">
+    <h3>Appearance</h3>
+
+    <div class="control-group">
+        <label class="control-label">Offset Bottom (px)</label>
+        <div class="controls">
+            <input type="number" class="input-mini"
+                   data-bind="value: settings.plugins.octoprint_fullscreen.offset_bottom" min="0">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Offset Right (px)</label>
+        <div class="controls">
+            <input type="number" class="input-mini"
+                   data-bind="value: settings.plugins.octoprint_fullscreen.offset_right" min="0">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Font Size (px)</label>
+        <div class="controls">
+            <input type="number" class="input-mini"
+                   data-bind="value: settings.plugins.octoprint_fullscreen.font_size" min="1">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Color & Transparency</label>
+        <div class="controls">
+            <div id="octoprint_fullscreen_picker"></div>
+            <input type="hidden" id="octoprint_fullscreen_color" data-bind="value: settings.plugins.octoprint_fullscreen.background_color">
+        </div>
+    </div>
+</form>
