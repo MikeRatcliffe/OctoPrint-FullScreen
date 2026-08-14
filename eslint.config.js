@@ -17,6 +17,7 @@ export default [
         OCTOPRINT_VIEWMODELS: 'readonly',
         ko: 'readonly',
         _: 'readonly',
+        OfsHelpers: 'readonly',
       },
     },
     rules: {
@@ -30,6 +31,7 @@ export default [
       'no-var': 'error',
       'one-var': ['error', 'never'],
       'prefer-const': 'error',
+      'prefer-template': 'error',
       'space-before-function-paren': [
         'error',
         { anonymous: 'never', named: 'never', asyncArrow: 'always' },

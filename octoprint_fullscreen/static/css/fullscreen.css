@@ -171,6 +171,7 @@ _:-webkit-full-screen,
   -webkit-border-radius: 0;
   -ms-border-radius: 0;
   border-radius: 0;
+  z-index: -1;
 }
 .inlineFullscreen {
   overflow: hidden;

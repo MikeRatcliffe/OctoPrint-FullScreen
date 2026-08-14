@@ -24,7 +24,7 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 
     def get_assets(self):
         return dict(
-            js=["js/fullscreen.js", "js/jquery-fullscreen.js", "js/pickr.min.js"],
+            js=["js/fullscreen.js", "js/jquery-fullscreen.js", "js/pickr.min.js", "js/helpers.js"],
             css=["css/fullscreen.css", "css/pickr.css"],
             less=[]
         )
