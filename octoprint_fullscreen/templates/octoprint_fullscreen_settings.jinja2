@@ -18,6 +18,14 @@
     </div>
 
     <div class="control-group">
+        <label class="control-label">Progress Bar Color</label>
+        <div class="controls">
+            <div id="octoprint_fullscreen_picker_progress"></div>
+            <input type="hidden" id="octoprint_fullscreen_color_picker_progress" data-bind="value: settings.plugins.octoprint_fullscreen.progress_bar_color">
+        </div>
+    </div>
+
+    <div class="control-group">
         <label class="control-label">Font Size (px)</label>
         <div class="controls">
             <input type="number" class="input-mini"
@@ -58,6 +66,9 @@
                         <p><span>Layer: 45/100</span></p>
                     </div>
                 </div>
+            </div>
+            <div class="ofs-preview-progress">
+                <div class="ofs-preview-bar"></div>
             </div>
         </div>
     </div>
