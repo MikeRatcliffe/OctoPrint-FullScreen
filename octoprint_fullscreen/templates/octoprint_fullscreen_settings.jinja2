@@ -6,6 +6,7 @@
         <div class="controls">
             <div id="octoprint_fullscreen_picker_fg"></div>
             <input type="hidden" id="octoprint_fullscreen_color_picker_fg" data-bind="value: settings.plugins.octoprint_fullscreen.foreground_color">
+            <button type="button" class="ofs-reset-button" data-setting="foreground_color" data-default="rgba(255, 255, 255, 1)">Reset</button>
         </div>
     </div>
 
@@ -14,6 +15,7 @@
         <div class="controls">
             <div id="octoprint_fullscreen_picker_bg"></div>
             <input type="hidden" id="octoprint_fullscreen_color_picker_bg" data-bind="value: settings.plugins.octoprint_fullscreen.background_color">
+            <button type="button" class="ofs-reset-button" data-setting="background_color" data-default="rgba(0, 0, 0, 0.25)">Reset</button>
         </div>
     </div>
 
@@ -22,6 +24,7 @@
         <div class="controls">
             <div id="octoprint_fullscreen_picker_progress"></div>
             <input type="hidden" id="octoprint_fullscreen_color_picker_progress" data-bind="value: settings.plugins.octoprint_fullscreen.progress_bar_color">
+            <button type="button" class="ofs-reset-button" data-setting="progress_bar_color" data-default="rgba(33, 150, 243, 1)">Reset</button>
         </div>
     </div>
 
@@ -30,6 +33,7 @@
         <div class="controls">
             <input type="number" class="input-mini"
                    data-bind="value: settings.plugins.octoprint_fullscreen.font_size" min="1">
+            <button type="button" class="ofs-reset-button" data-setting="font_size" data-default="25">Reset</button>
         </div>
     </div>
 
@@ -48,6 +52,7 @@
                     <div class="ofs-font-option" data-font="Verdana" style="font-family: Verdana;">Verdana</div>
                 </div>
             </div>
+            <button type="button" class="ofs-reset-button" data-setting="font" data-default="Arial">Reset</button>
         </div>
     </div>
 

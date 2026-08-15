@@ -228,6 +228,7 @@ _:-webkit-full-screen,
 .ofs-custom-font-picker {
   position: relative;
   width: 250px;
+  display: inline-block;
 }
 
 .ofs-font-picker-button {
@@ -315,4 +316,24 @@ _:-webkit-full-screen,
   height: 100%;
   width: 50%;
   background: rgba(33, 150, 243, 1);
+}
+
+.ofs-reset-button {
+  margin-left: 10px;
+  padding: 4px 12px;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
+}
+
+.ofs-reset-button:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+#settings_plugin_octoprint_fullscreen .pickr {
+  display: inline-block;
 }

@@ -20,6 +20,13 @@ class OfsHelpers {
     "regular": "regular"
   }
 
+  /** @type {object} Color picker instances */
+  pickrInstances = {
+    foreground: null,
+    background: null,
+    progress: null
+  }
+
   /**
    * Creates an instance of OfsHelpers.
    *
@@ -343,6 +350,8 @@ class OfsHelpers {
       },
     });
 
+    this.pickrInstances.foreground = pickrFg;
+
     pickrFg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(rgbaString);
@@ -403,6 +412,8 @@ class OfsHelpers {
       },
     });
 
+    this.pickrInstances.background = pickrBg;
+
     pickrBg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(rgbaString);
@@ -461,6 +472,8 @@ class OfsHelpers {
       },
     });
 
+    this.pickrInstances.progress = pickrProgress;
+
     pickrProgress.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color(rgbaString);
@@ -504,6 +517,42 @@ class OfsHelpers {
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.font(selectedFont);
       this.viewModel.settings.saveData();
       this.updatePreview();
+    });
+
+    // Handle reset buttons
+    this.initResetButtons();
+  }
+
+  initResetButtons() {
+    $('.ofs-reset-button').on('click', (e) => {
+      const $button = $(e.currentTarget);
+      const settingName = $button.data('setting');
+      const defaultValue = $button.data('default');
+
+      if (settingName && defaultValue !== undefined) {
+        this.viewModel.settings.settings.plugins.octoprint_fullscreen[settingName](defaultValue);
+        this.viewModel.settings.saveData();
+        this.updatePreview();
+
+        // Update UI elements for specific settings
+        if (settingName === 'font') {
+          const $picker = $("#octoprint_fullscreen-font-picker");
+          const $button = $picker.find('.ofs-font-picker-button');
+          $button.text(defaultValue).css('font-family', defaultValue);
+        } else if (settingName === 'foreground_color') {
+          if (this.pickrInstances.foreground) {
+            this.pickrInstances.foreground.setColor(defaultValue);
+          }
+        } else if (settingName === 'background_color') {
+          if (this.pickrInstances.background) {
+            this.pickrInstances.background.setColor(defaultValue);
+          }
+        } else if (settingName === 'progress_bar_color') {
+          if (this.pickrInstances.progress) {
+            this.pickrInstances.progress.setColor(defaultValue);
+          }
+        }
+      }
     });
   }
 
