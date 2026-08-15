@@ -64,6 +64,8 @@ class OfsHelpers {
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color;
     this.viewModel.backgroundColor =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color;
+    this.viewModel.progressBarColor =
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color;
     this.viewModel.offsetLeftMaximised =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_left_maximised;
     this.viewModel.offsetTopMaximised =
@@ -86,6 +88,10 @@ class OfsHelpers {
       this.updatePreview();
     });
     this.viewModel.backgroundColor.subscribe(() => {
+      this.applyStyles();
+      this.updatePreview();
+    });
+    this.viewModel.progressBarColor.subscribe(() => {
       this.applyStyles();
       this.updatePreview();
     });
@@ -136,6 +142,15 @@ class OfsHelpers {
       top: `${offsetTop}px`,
       left: `${offsetLeft}px`,
     });
+
+    // Apply progress bar color to the actual progress bar element
+    const $progressBar = $('#fullscreen-progress-bar .bar');
+    if ($progressBar.length > 0) {
+      $progressBar.css({
+        'background-color': this.viewModel.progressBarColor(),
+        'background-image': 'none'
+      });
+    }
   }
 
   /**
@@ -278,6 +293,7 @@ class OfsHelpers {
   createPickrs() {
     this.createPickrFg();
     this.createPickrBg();
+    this.createPickrProgressBar();
   }
 
   /**
@@ -398,6 +414,64 @@ class OfsHelpers {
     });
   }
 
+  /**
+   * Initialise and configure the Pickr color picker for the progress bar color.
+   */
+  createPickrProgressBar() {
+    const pickerElementProgress = document.querySelector('#octoprint_fullscreen_picker_progress');
+    if (!pickerElementProgress) {
+      console.warn('OfsHelpers: Pickr progress bar element not found');
+      return;
+    }
+
+    // eslint-disable-next-line no-undef
+    const pickrProgress = ofsPickr.create({
+      el: '#octoprint_fullscreen_picker_progress',
+      id: 'octoprint_fullscreen_pickr_instance_progress',
+      theme: 'nano',
+      default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color(),
+
+      swatches: [
+        'rgb(244, 67, 54)',
+        'rgb(233, 30, 99)',
+        'rgb(156, 39, 176)',
+        'rgb(103, 58, 183)',
+        'rgb(63, 81, 181)',
+        'rgb(33, 150, 243)',
+        'rgb(3, 169, 244)',
+        'rgb(0, 188, 212)',
+        'rgb(0, 150, 136)',
+        'rgb(76, 175, 80)',
+        'rgb(139, 195, 74)',
+        'rgb(205, 220, 57)',
+        'rgb(255, 235, 59)',
+        'rgb(255, 193, 7)',
+      ],
+
+      components: {
+        preview: true,
+        hue: true,
+
+        interaction: {
+          hex: true,
+          cmyk: true,
+          input: true,
+          save: true,
+        },
+      },
+    });
+
+    pickrProgress.on('change', (color) => {
+      const rgbaString = color.toRGBA().toString(0);
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color(rgbaString);
+      this.updatePreview();
+    });
+
+    pickrProgress.on('save', () => {
+      pickrProgress.hide();
+    });
+  }
+
   createFontPicker() {
     const $picker = $("#octoprint_fullscreen-font-picker");
     const $button = $picker.find('.ofs-font-picker-button');
@@ -447,19 +521,16 @@ class OfsHelpers {
     // Update colors
     const fgColor = settings.foreground_color() || '#ffffff';
     const bgColor = settings.background_color() || '#000000';
+    const progressColor = settings.progress_bar_color() || 'rgba(33, 150, 243, 1)';
 
     $overlay.css('color', fgColor);
     $preview.css('background', bgColor);
 
-    // Update overlay background
-    $overlay.find('span').css('background', this.hexToRgba(fgColor, 0.3));
-  }
-
-  hexToRgba(hex, alpha) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    // Update progress bar color in preview
+    $('.ofs-preview-bar').css({
+      'background-color': progressColor,
+      'background-image': 'none'
+    });
   }
 
   /**

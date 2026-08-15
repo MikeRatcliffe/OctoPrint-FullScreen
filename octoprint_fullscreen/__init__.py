@@ -11,6 +11,7 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
             "font_size": 25,
             "foreground_color": "rgba(255, 255, 255, 1)",
             "background_color": "rgba(0, 0, 0, 0.25)",
+            "progress_bar_color": "rgba(33, 150, 243, 1)",
             "offset_left_maximised": -1,
             "offset_top_maximised": -1,
             "offset_left_fullscreen": -1,
@@ -30,6 +31,9 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
             ),
             "background_color": self._settings.get(
                 ["background_color"]
+            ),
+            "progress_bar_color": self._settings.get(
+                ["progress_bar_color"]
             ),
             "offset_left_maximised": self._settings.get(
                 ["offset_left_maximised"]
