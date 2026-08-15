@@ -393,8 +393,8 @@ class OfsHelpers {
 
   createFontPicker() {
     const $picker = $("#octoprint_fullscreen-font-picker");
-    const $button = $picker.find('.font-picker-button');
-    const $dropdown = $picker.find('.font-dropdown');
+    const $button = $picker.find('.ofs-font-picker-button');
+    const $dropdown = $picker.find('.ofs-font-dropdown');
 
     // Set initial value
     const savedFont = this.viewModel.settings.settings.plugins.octoprint_fullscreen.font();
@@ -416,7 +416,7 @@ class OfsHelpers {
     });
 
     // Handle option selection
-    $dropdown.find('.font-option').on('click', (e) => {
+    $dropdown.find('.ofs-font-option').on('click', (e) => {
       const selectedFont = $(e.target).data('font');
       $button.text(selectedFont).css('font-family', selectedFont);
       $dropdown.hide();
