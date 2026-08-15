@@ -44,3 +44,7 @@ or manually using this URL:
 - IE Edge
 - Firefox
 - Chrome
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
