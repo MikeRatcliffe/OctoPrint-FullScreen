@@ -75,15 +75,19 @@ class OfsHelpers {
 
     this.viewModel.font.subscribe(() => {
       this.applyStyles();
+      this.updatePreview();
     });
     this.viewModel.fontSize.subscribe(() => {
       this.applyStyles();
+      this.updatePreview();
     });
     this.viewModel.foregroundColor.subscribe(() => {
       this.applyStyles();
+      this.updatePreview();
     });
     this.viewModel.backgroundColor.subscribe(() => {
       this.applyStyles();
+      this.updatePreview();
     });
     this.viewModel.offsetLeftMaximised.subscribe(() => {
       this.applyStyles();
@@ -99,6 +103,7 @@ class OfsHelpers {
     });
 
     this.applyStyles();
+    this.updatePreview();
   }
 
   /**
@@ -322,9 +327,10 @@ class OfsHelpers {
       },
     });
 
-    pickrFg.on('change', color => {
+    pickrFg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(rgbaString);
+      this.updatePreview();
     });
 
     pickrFg.on('save', () => {
@@ -381,9 +387,10 @@ class OfsHelpers {
       },
     });
 
-    pickrBg.on('change', color => {
+    pickrBg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(rgbaString);
+      this.updatePreview();
     });
 
     pickrBg.on('save', () => {
@@ -422,7 +429,37 @@ class OfsHelpers {
       $dropdown.hide();
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.font(selectedFont);
       this.viewModel.settings.saveData();
+      this.updatePreview();
     });
+  }
+
+  updatePreview() {
+    const settings = this.viewModel.settings.settings.plugins.octoprint_fullscreen;
+    const $preview = $('#fullscreen-preview');
+    const $overlay = $preview.find('.ofs-preview-overlay');
+
+    // Update font
+    const font = settings.font() || 'Arial';
+    const fontSize = settings.font_size() || 16;
+    $overlay.css('font-family', font);
+    $overlay.css('font-size', `${fontSize}px`);
+
+    // Update colors
+    const fgColor = settings.foreground_color() || '#ffffff';
+    const bgColor = settings.background_color() || '#000000';
+
+    $overlay.css('color', fgColor);
+    $preview.css('background', bgColor);
+
+    // Update overlay background
+    $overlay.find('span').css('background', this.hexToRgba(fgColor, 0.3));
+  }
+
+  hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
   /**
