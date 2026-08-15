@@ -220,3 +220,53 @@ _:-webkit-full-screen,
     border linear 0.2s,
     box-shadow linear 0.2s;
 }
+
+.custom-font-picker {
+  position: relative;
+  width: 100%;
+}
+
+.font-picker-button {
+  width: 100%;
+  text-align: left;
+  padding: 4px 12px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.font-picker-button:hover {
+  border-color: #999;
+}
+
+.font-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 4px;
+  z-index: 9999;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.font-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.font-option:last-child {
+  border-bottom: none;
+}
+
+.font-option:hover {
+  background: #f5f5f5;
+}

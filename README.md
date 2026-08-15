@@ -22,10 +22,10 @@ If the DisplayLayerProgress plugin is installed, it will also display the layer 
   - Bed temperature (actual and target)
   - Layer progress (if DisplayLayerProgress plugin is installed)
 - **Progress bar**: Shows print progress at the bottom of the fullscreen feed
-
 - **Double-click webcam to fullscreen**: Double-click the webcam feed to open it in fullscreen mode
 - **Fullscreen toggle button**: Button to switch between maximized and true fullscreen modes
 - **Font size adjustment**: Font size can be changed in the settings dialog
+- **Font family selection**: Choose from multiple font families including monospace, serif, and sans-serif options
 - **Color adjustment**: Foreground and background color can be changed in the settings dialog
 - **Pause/Resume button**: Click to pause/resume your print
 

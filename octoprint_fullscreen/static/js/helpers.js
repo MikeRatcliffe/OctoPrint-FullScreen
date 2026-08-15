@@ -56,6 +56,8 @@ class OfsHelpers {
    * and subscribes to their changes to apply styles whenever they are modified.
    */
   initSettingsSubscriptions() {
+    this.viewModel.font =
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.font;
     this.viewModel.fontSize =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.font_size;
     this.viewModel.foregroundColor =
@@ -71,6 +73,9 @@ class OfsHelpers {
     this.viewModel.offsetTopFullscreen =
       this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_top_fullscreen;
 
+    this.viewModel.font.subscribe(() => {
+      this.applyStyles();
+    });
     this.viewModel.fontSize.subscribe(() => {
       this.applyStyles();
     });
@@ -121,6 +126,7 @@ class OfsHelpers {
     $view.css({
       'color': this.viewModel.foregroundColor(),
       'background-color': this.viewModel.backgroundColor(),
+      'font-family': this.viewModel.font(),
       'font-size': `${this.viewModel.fontSize()}px`,
       top: `${offsetTop}px`,
       left: `${offsetLeft}px`,
@@ -382,6 +388,40 @@ class OfsHelpers {
 
     pickrBg.on('save', () => {
       pickrBg.hide();
+    });
+  }
+
+  createFontPicker() {
+    const $picker = $("#octoprint_fullscreen-font-picker");
+    const $button = $picker.find('.font-picker-button');
+    const $dropdown = $picker.find('.font-dropdown');
+
+    // Set initial value
+    const savedFont = this.viewModel.settings.settings.plugins.octoprint_fullscreen.font();
+    if (savedFont) {
+      $button.text(savedFont).css('font-family', savedFont);
+    }
+
+    // Toggle dropdown
+    $button.on('click', (e) => {
+      e.stopPropagation();
+      $dropdown.toggle();
+    });
+
+    // Close dropdown when clicking outside
+    $(document).on('click', (e) => {
+      if (!$picker.is(e.target) && $picker.has(e.target).length === 0) {
+        $dropdown.hide();
+      }
+    });
+
+    // Handle option selection
+    $dropdown.find('.font-option').on('click', (e) => {
+      const selectedFont = $(e.target).data('font');
+      $button.text(selectedFont).css('font-family', selectedFont);
+      $dropdown.hide();
+      this.viewModel.settings.settings.plugins.octoprint_fullscreen.font(selectedFont);
+      this.viewModel.settings.saveData();
     });
   }
 

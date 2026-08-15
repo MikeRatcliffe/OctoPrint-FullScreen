@@ -7,6 +7,7 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 
     def get_settings_defaults(self):
         return {
+            "font": "Arial",
             "font_size": 25,
             "foreground_color": "rgba(255, 255, 255, 1)",
             "background_color": "rgba(0, 0, 0, 0.25)",
@@ -18,6 +19,9 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 
     def get_template_vars(self):
         return {
+            "font": self._settings.get(
+                ["font"]
+            ),
             "font_size": self._settings.get(
                 ["font_size"]
             ),
@@ -43,10 +47,17 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
 
     def get_assets(self):
         return {
-            "js": ["js/fullscreen.js", "js/jquery-fullscreen.js",
-                   "js/pickr.min.js", "js/helpers.js"],
-            "css": ["css/fullscreen.css", "css/pickr.css"],
-            "less": []
+            "js": [
+                "js/fullscreen.js",
+                "js/jquery-fullscreen.js",
+                "js/pickr.min.js",
+                "js/helpers.js",
+            ],
+            "css": [
+                "css/fullscreen.css",
+                "css/pickr.css",
+            ],
+            "less": [],
         }
 
     def get_template_configs(self):

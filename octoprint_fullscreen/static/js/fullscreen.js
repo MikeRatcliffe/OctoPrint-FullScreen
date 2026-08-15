@@ -152,6 +152,7 @@ $(function () {
 
     self.onAllBound = function () {
       helpers.createPickrs();
+      helpers.createFontPicker();
     };
 
     self.onAfterBinding = function () {
