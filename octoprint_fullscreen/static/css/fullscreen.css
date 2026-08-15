@@ -270,3 +270,33 @@ _:-webkit-full-screen,
 .ofs-font-option:hover {
   background: #f5f5f5;
 }
+
+.ofs-fullscreen-preview {
+  background: #000;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.ofs-preview-overlay {
+  position: relative;
+}
+
+.ofs-preview-tool-info p,
+.ofs-preview-print-info p {
+  margin: 2px 0;
+  line-height: 1.2;
+}
+
+.ofs-preview-tool-info p span,
+.ofs-preview-print-info p span {
+  padding: 2px 6px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 1px 0;
+}
+
+.ofs-preview-print-info {
+  margin-top: 5px;
+}

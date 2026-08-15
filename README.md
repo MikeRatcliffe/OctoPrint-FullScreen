@@ -28,6 +28,7 @@ If the DisplayLayerProgress plugin is installed, it will also display the layer 
 - **Font family selection**: Choose from multiple font families including monospace, serif, and sans-serif options
 - **Color adjustment**: Foreground and background color can be changed in the settings dialog
 - **Pause/Resume button**: Click to pause/resume your print
+- **Preview in settings**: See how your settings will look before saving
 
 ## Setup
 
