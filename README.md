@@ -9,9 +9,11 @@ This plugin will allow you to open the webcam feed in fullscreen mode by double 
 
 If the DisplayLayerProgress plugin is installed, it will also display the layer progress.
 
-## Screenshot
+## Screenshots
 
-![screenshot](assets/screenshot.jpg)
+![Main Screenshot](assets/main-screenshot.jpg)
+
+![Settings Screenshot](assets/settings-screenshot.png)
 
 ## Features
 
