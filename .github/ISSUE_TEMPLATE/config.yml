@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and Support
+    url: https://community.octoprint.org/
+    about: Please ask questions and get support in the OctoPrint community forums
+  - name: OctoPrint Documentation
+    url: https://docs.octoprint.org/
+    about: Check the official OctoPrint documentation for help
