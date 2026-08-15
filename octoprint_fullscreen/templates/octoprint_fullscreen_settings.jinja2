@@ -1,6 +1,10 @@
 <form class="form-horizontal">
     <h3>Appearance</h3>
 
+    <h4>Overlay</h4>
+
+    <p class="alert alert-block alert-info"><strong>Note:</strong> the overlay can be moved by dragging it into position when in either the <strong>maximised</strong> or <strong>fullscreen</strong> modes. The position of the overlay is saved individually for each of these views.</p>
+
     <div class="control-group">
         <label class="control-label">Foreground Color</label>
         <div class="controls">
@@ -16,15 +20,6 @@
             <div id="octoprint_fullscreen_picker_bg"></div>
             <input type="hidden" id="octoprint_fullscreen_color_picker_bg" data-bind="value: settings.plugins.octoprint_fullscreen.background_color">
             <button type="button" class="ofs-reset-button" data-setting="background_color" data-default="rgba(0, 0, 0, 0.25)">Reset</button>
-        </div>
-    </div>
-
-    <div class="control-group">
-        <label class="control-label">Progress Bar Color</label>
-        <div class="controls">
-            <div id="octoprint_fullscreen_picker_progress"></div>
-            <input type="hidden" id="octoprint_fullscreen_color_picker_progress" data-bind="value: settings.plugins.octoprint_fullscreen.progress_bar_color">
-            <button type="button" class="ofs-reset-button" data-setting="progress_bar_color" data-default="rgba(33, 150, 243, 1)">Reset</button>
         </div>
     </div>
 
@@ -72,6 +67,23 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <h4>Progress bar</h4>
+
+    <div class="control-group">
+        <label class="control-label">Color</label>
+        <div class="controls">
+            <div id="octoprint_fullscreen_picker_progress"></div>
+            <input type="hidden" id="octoprint_fullscreen_color_picker_progress" data-bind="value: settings.plugins.octoprint_fullscreen.progress_bar_color">
+            <button type="button" class="ofs-reset-button" data-setting="progress_bar_color" data-default="rgba(33, 150, 243, 1)">Reset</button>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Preview</label>
+        <div class="controls">
             <div class="ofs-preview-progress">
                 <div class="ofs-preview-bar"></div>
             </div>

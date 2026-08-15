@@ -309,7 +309,7 @@ _:-webkit-full-screen,
 .ofs-preview-progress {
   width: 100%;
   height: 5px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .ofs-preview-bar {
@@ -336,4 +336,10 @@ _:-webkit-full-screen,
 
 #settings_plugin_octoprint_fullscreen .pickr {
   display: inline-block;
+}
+
+#settings_plugin_octoprint_fullscreen .pickr .pcr-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
 }
