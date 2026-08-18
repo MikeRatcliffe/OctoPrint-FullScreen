@@ -32,7 +32,7 @@ If applicable, add screenshots to help explain your problem.
 ## Environment
 
 - **OctoPrint Version:** (e.g., 1.8.0)
-- **Plugin Version:** (e.g., 0.0.7)
+- **Plugin Version:** (e.g., 1.0.0)
 - **Operating System:** (e.g., Windows 10, macOS 12, Ubuntu 20.04)
 - **Browser:** (e.g., Chrome 120, Firefox 119, Edge 120)
 - **Python Version:** (if known)
