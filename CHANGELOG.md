@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Widescreen mode toggle
 - Settings dialog with customizable options
 - Progress bar color picker
 - Font selection dropdown with preview

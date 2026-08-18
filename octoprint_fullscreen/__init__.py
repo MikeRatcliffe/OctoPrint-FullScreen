@@ -16,6 +16,7 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
             "offset_top_maximised": -1,
             "offset_left_fullscreen": -1,
             "offset_top_fullscreen": -1,
+            "widecreen_mode": False,
         }
 
     def get_template_vars(self):
@@ -46,6 +47,9 @@ class FullscreenPlugin(octoprint.plugin.SettingsPlugin,
             ),
             "offset_top_fullscreen": self._settings.get(
                 ["offset_top_fullscreen"]
+            ),
+            "widecreen_mode": self._settings.get(
+                ["widecreen_mode"]
             ),
         }
 

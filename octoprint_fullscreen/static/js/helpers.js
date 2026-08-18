@@ -65,6 +65,7 @@ class OfsHelpers {
   initSettingsSubscriptions() {
     const settings = this.viewModel.settings.settings;
 
+    this.viewModel.widecreen_mode = settings.plugins.fullscreen.widecreen_mode;
     this.viewModel.font = settings.plugins.fullscreen.font;
     this.viewModel.fontSize = settings.plugins.fullscreen.font_size;
     this.viewModel.foregroundColor = settings.plugins.fullscreen.foreground_color;
@@ -74,6 +75,10 @@ class OfsHelpers {
     this.viewModel.offsetTopMaximised = settings.plugins.fullscreen.offset_top_maximised;
     this.viewModel.offsetLeftFullscreen = settings.plugins.fullscreen.offset_left_fullscreen;
     this.viewModel.offsetTopFullscreen = settings.plugins.fullscreen.offset_top_fullscreen;
+
+    this.viewModel.widecreen_mode.subscribe(() => {
+      this.widescreenMode();
+    });
     this.viewModel.font.subscribe(() => {
       this.applyStyles();
       this.updatePreview();
@@ -668,5 +673,15 @@ class OfsHelpers {
       width: renderedWidth,
       height: renderedHeight,
     };
+  }
+
+  widescreenMode() {
+    if (this.viewModel.settings.settings.plugins.fullscreen.widecreen_mode()) {
+      $('.octoprint-container>.row>[aria-label="Tabs"]').css('width', 'calc(100% - 340px)');
+      $('.octoprint-container, .navbar-static-top .container').css('width', '100%');
+    } else {
+      $('.octoprint-container>.row>[aria-label="Tabs"]').css('width', '');
+      $('.octoprint-container, .navbar-static-top .container').css('width', '');
+    }
   }
 }

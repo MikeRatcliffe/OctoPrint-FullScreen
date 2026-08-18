@@ -115,6 +115,7 @@ $(function () {
       ko.applyBindings(self.printer, $('#fullscreen-bar #fullscreen-buttons').get(0));
       ko.applyBindings(self.printer, $('#fullscreen-bar #fullscreen-progress-bar').get(0));
 
+      helpers.widescreenMode();
       helpers.initProgressBarPositionUpdater();
       helpers.makeOverlayDraggable();
     };

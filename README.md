@@ -29,6 +29,7 @@ If the DisplayLayerProgress plugin is installed, it will also display the layer 
 - **Font size adjustment**: Font size can be changed in the settings dialog
 - **Font family selection**: Choose from multiple font families including monospace, serif, and sans-serif options
 - **Color adjustments**: Foreground, background and progress bar colors can be changed in the settings dialog
+- **Widescreen mode**: Toggle to enable widescreen mode
 - **Pause/Resume button**: Click to pause/resume your print
 - **Preview in settings**: See how the overlay and progress bar will look before saving
 
