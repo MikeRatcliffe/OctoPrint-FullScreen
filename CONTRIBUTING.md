@@ -12,11 +12,14 @@ Thank you for your interest in contributing to OctoPrint-FullScreen! This docume
 
 ### Setting Up the Development Environment
 
+I use the path `~/Desktop/Repositories` for my repositories, update the paths as appropriate.
+
 1. **Fork and clone the repository:**
 
    First, fork the repository on GitHub to your own account, then clone your fork:
 
    ```bash
+   cd ~/Desktop/Repositories
    git clone https://github.com/YOUR_USERNAME/OctoPrint-FullScreen.git
    cd OctoPrint-FullScreen
    ```
@@ -27,22 +30,26 @@ Thank you for your interest in contributing to OctoPrint-FullScreen! This docume
    git remote add upstream https://github.com/MikeRatcliffe/OctoPrint-FullScreen.git
    ```
 
-2. **Install Python dependencies:**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Install Node.js dependencies:**
+2. **Install Node.js dependencies:**
 
    ```bash
    npm install
    ```
 
+3. **Install Octoprint inside venv:**
+
+   ```bash
+   cd ..
+   mkdir Octoprint
+   cd Octoprint
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
+
 4. **Install the plugin in development mode:**
 
    ```bash
-   pip install -e .
+   pip install --no-build-isolation -e ../OctoPrint-FullScreen/
    ```
 
    This will create a symlink in your Python environment, allowing changes to take effect immediately without reinstalling.
@@ -53,45 +60,14 @@ To test your development version of the plugin in OctoPrint:
 
 1. **Using symlinks for quick testing:**
 
-   The `pip install -e .` command creates a symlink, meaning any changes you make to the code will be immediately available in OctoPrint without needing to reinstall. However, you may need to restart OctoPrint for changes to take effect.
+   The `pip install --no-build-isolation -e ../OctoPrint-FullScreen/` command creates a symlink, meaning any changes you make to the code will be immediately available in OctoPrint without needing to reinstall. However, you may need to restart OctoPrint for changes to take effect.
 
-2. **Alternative symlink method (if needed):**
-
-   If you prefer to manually symlink the plugin into OctoPrint's plugin directory, the location varies by operating system:
-
-   **macOS:**
-
-   ```bash
-   # Typical location: ~/Library/Application Support/OctoPrint/plugins
-   ln -s /path/to/OctoPrint-FullScreen/octoprint_fullscreen ~/Library/Application\ Support/OctoPrint/plugins/octoprint_fullscreen
-   ```
-
-   **Linux:**
-
-   ```bash
-   # Typical location: ~/.octoprint/plugins
-   ln -s /path/to/OctoPrint-FullScreen/octoprint_fullscreen ~/.octoprint/plugins/octoprint_fullscreen
-   ```
-
-   **Windows:**
-
-   ```powershell
-   # Typical location: %USERPROFILE%\.octoprint\plugins
-   # Requires administrator privileges or Developer Mode enabled
-   mklink /D "%USERPROFILE%\.octoprint\plugins\octoprint_fullscreen" "C:\path\to\OctoPrint-FullScreen\octoprint_fullscreen"
-   ```
-
-   **Windows alternative (without admin rights):**
-   You can also use junction points or copy the plugin directory for testing on Windows if symlink creation is restricted.
-
-3. **Reload OctoPrint:**
-
-   After making changes, restart OctoPrint to see your updates:
+2. After making any changes, restart OctoPrint to see your updates:
    - If running as a service: `sudo service octoprint restart`
    - If running manually: Stop and restart the OctoPrint server
    - In the OctoPrint web interface: Go to Settings → Plugin Manager and reload
 
-4. **Verify your changes:**
+3. **Verify your changes:**
 
    - Check the plugin version in OctoPrint's Plugin Manager
    - Test the specific functionality you've modified
