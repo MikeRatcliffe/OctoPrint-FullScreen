@@ -63,25 +63,17 @@ class OfsHelpers {
    * and subscribes to their changes to apply styles whenever they are modified.
    */
   initSettingsSubscriptions() {
-    this.viewModel.font =
-      this.viewModel.settings.settings.plugins.fullscreen.font;
-    this.viewModel.fontSize =
-      this.viewModel.settings.settings.plugins.fullscreen.font_size;
-    this.viewModel.foregroundColor =
-      this.viewModel.settings.settings.plugins.fullscreen.foreground_color;
-    this.viewModel.backgroundColor =
-      this.viewModel.settings.settings.plugins.fullscreen.background_color;
-    this.viewModel.progressBarColor =
-      this.viewModel.settings.settings.plugins.fullscreen.progress_bar_color;
-    this.viewModel.offsetLeftMaximised =
-      this.viewModel.settings.settings.plugins.fullscreen.offset_left_maximised;
-    this.viewModel.offsetTopMaximised =
-      this.viewModel.settings.settings.plugins.fullscreen.offset_top_maximised;
-    this.viewModel.offsetLeftFullscreen =
-      this.viewModel.settings.settings.plugins.fullscreen.offset_left_fullscreen;
-    this.viewModel.offsetTopFullscreen =
-      this.viewModel.settings.settings.plugins.fullscreen.offset_top_fullscreen;
+    const settings = this.viewModel.settings.settings;
 
+    this.viewModel.font = settings.plugins.fullscreen.font;
+    this.viewModel.fontSize = settings.plugins.fullscreen.font_size;
+    this.viewModel.foregroundColor = settings.plugins.fullscreen.foreground_color;
+    this.viewModel.backgroundColor = settings.plugins.fullscreen.background_color;
+    this.viewModel.progressBarColor = settings.plugins.fullscreen.progress_bar_color;
+    this.viewModel.offsetLeftMaximised = settings.plugins.fullscreen.offset_left_maximised;
+    this.viewModel.offsetTopMaximised = settings.plugins.fullscreen.offset_top_maximised;
+    this.viewModel.offsetLeftFullscreen = settings.plugins.fullscreen.offset_left_fullscreen;
+    this.viewModel.offsetTopFullscreen = settings.plugins.fullscreen.offset_top_fullscreen;
     this.viewModel.font.subscribe(() => {
       this.applyStyles();
       this.updatePreview();
