@@ -64,23 +64,23 @@ class OfsHelpers {
    */
   initSettingsSubscriptions() {
     this.viewModel.font =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.font;
+      this.viewModel.settings.settings.plugins.fullscreen.font;
     this.viewModel.fontSize =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.font_size;
+      this.viewModel.settings.settings.plugins.fullscreen.font_size;
     this.viewModel.foregroundColor =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color;
+      this.viewModel.settings.settings.plugins.fullscreen.foreground_color;
     this.viewModel.backgroundColor =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color;
+      this.viewModel.settings.settings.plugins.fullscreen.background_color;
     this.viewModel.progressBarColor =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color;
+      this.viewModel.settings.settings.plugins.fullscreen.progress_bar_color;
     this.viewModel.offsetLeftMaximised =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_left_maximised;
+      this.viewModel.settings.settings.plugins.fullscreen.offset_left_maximised;
     this.viewModel.offsetTopMaximised =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_top_maximised;
+      this.viewModel.settings.settings.plugins.fullscreen.offset_top_maximised;
     this.viewModel.offsetLeftFullscreen =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_left_fullscreen;
+      this.viewModel.settings.settings.plugins.fullscreen.offset_left_fullscreen;
     this.viewModel.offsetTopFullscreen =
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.offset_top_fullscreen;
+      this.viewModel.settings.settings.plugins.fullscreen.offset_top_fullscreen;
 
     this.viewModel.font.subscribe(() => {
       this.applyStyles();
@@ -318,7 +318,7 @@ class OfsHelpers {
       el: '#octoprint_fullscreen_picker_fg',
       id: 'octoprint_fullscreen_pickr_instance_fg',
       theme: 'nano',
-      default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(),
+      default: this.viewModel.settings.settings.plugins.fullscreen.foreground_color(),
 
       swatches: [
         'rgb(244, 67, 54)',
@@ -354,7 +354,7 @@ class OfsHelpers {
 
     pickrFg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.foreground_color(rgbaString);
+      this.viewModel.settings.settings.plugins.fullscreen.foreground_color(rgbaString);
       this.updatePreview();
     });
 
@@ -378,7 +378,7 @@ class OfsHelpers {
       el: '#octoprint_fullscreen_picker_bg',
       id: 'octoprint_fullscreen_pickr_instance_bg',
       theme: 'nano',
-      default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(),
+      default: this.viewModel.settings.settings.plugins.fullscreen.background_color(),
 
       swatches: [
         'rgba(244, 67, 54, 1)',
@@ -416,7 +416,7 @@ class OfsHelpers {
 
     pickrBg.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.background_color(rgbaString);
+      this.viewModel.settings.settings.plugins.fullscreen.background_color(rgbaString);
       this.updatePreview();
     });
 
@@ -440,7 +440,7 @@ class OfsHelpers {
       el: '#octoprint_fullscreen_picker_progress',
       id: 'octoprint_fullscreen_pickr_instance_progress',
       theme: 'nano',
-      default: this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color(),
+      default: this.viewModel.settings.settings.plugins.fullscreen.progress_bar_color(),
 
       swatches: [
         'rgb(244, 67, 54)',
@@ -476,7 +476,7 @@ class OfsHelpers {
 
     pickrProgress.on('change', (color) => {
       const rgbaString = color.toRGBA().toString(0);
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.progress_bar_color(rgbaString);
+      this.viewModel.settings.settings.plugins.fullscreen.progress_bar_color(rgbaString);
       this.updatePreview();
     });
 
@@ -491,7 +491,7 @@ class OfsHelpers {
     const $dropdown = $picker.find('.ofs-font-dropdown');
 
     // Set initial value
-    const savedFont = this.viewModel.settings.settings.plugins.octoprint_fullscreen.font();
+    const savedFont = this.viewModel.settings.settings.plugins.fullscreen.font();
     if (savedFont) {
       $button.text(savedFont).css('font-family', savedFont);
     }
@@ -514,7 +514,7 @@ class OfsHelpers {
       const selectedFont = $(e.target).data('font');
       $button.text(selectedFont).css('font-family', selectedFont);
       $dropdown.hide();
-      this.viewModel.settings.settings.plugins.octoprint_fullscreen.font(selectedFont);
+      this.viewModel.settings.settings.plugins.fullscreen.font(selectedFont);
       this.viewModel.settings.saveData();
       this.updatePreview();
     });
@@ -530,7 +530,7 @@ class OfsHelpers {
       const defaultValue = $button.data('default');
 
       if (settingName && defaultValue !== undefined) {
-        this.viewModel.settings.settings.plugins.octoprint_fullscreen[settingName](defaultValue);
+        this.viewModel.settings.settings.plugins.fullscreen[settingName](defaultValue);
         this.viewModel.settings.saveData();
         this.updatePreview();
 
@@ -557,7 +557,7 @@ class OfsHelpers {
   }
 
   updatePreview() {
-    const settings = this.viewModel.settings.settings.plugins.octoprint_fullscreen;
+    const settings = this.viewModel.settings.settings.plugins.fullscreen;
     const $preview = $('#fullscreen-preview');
     const $overlay = $preview.find('.ofs-preview-overlay');
 
